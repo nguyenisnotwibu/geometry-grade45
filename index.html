@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geometry Quest – Grade 4 &amp; 5 Math | Everyday Mathematics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#2f7fd1; --blue2:#4aa3f0; --navy:#1c4f8f; --ink:#2b3a55; --mut:#6b7a99;
+  --bg:#eaf4fd; --card:#ffffff; --yellow:#ffc83d; --green:#2eb872; --red:#ef5d60;
+  --purple:#7b5ce0; --teal:#19a7a0; --orange:#ff8c42;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Baloo 2','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+/* ---------- header ---------- */
+header{background:linear-gradient(120deg,var(--blue2),var(--blue) 60%,var(--navy));color:#fff;text-align:center;padding:34px 16px 26px;position:relative;overflow:hidden}
+header .shapes{position:absolute;inset:0;opacity:.14;pointer-events:none}
+header h1{font-size:clamp(26px,5vw,44px);font-weight:800;text-shadow:0 3px 0 rgba(0,0,0,.18);position:relative}
+header p{opacity:.92;font-size:clamp(14px,2.4vw,18px);position:relative}
+header .student-chip{position:relative;display:inline-flex;gap:8px;align-items:center;margin-top:10px;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.45);padding:4px 14px;border-radius:999px;font-size:14px;cursor:pointer}
+/* ---------- stat bar ---------- */
+.statbar{background:#fff;display:flex;justify-content:center;gap:clamp(10px,4vw,40px);padding:12px 8px;box-shadow:0 2px 8px rgba(28,79,143,.08);flex-wrap:wrap;align-items:center}
+.stat{display:flex;align-items:center;gap:7px;font-weight:700;color:var(--navy)}
+.stat .pill{background:var(--yellow);color:#7a5200;min-width:38px;text-align:center;border-radius:999px;padding:2px 10px;font-weight:800}
+.stat .pill.green{background:#c9f2dd;color:#0e7a44}
+.stat .pill.red{background:#ffd9da;color:#b22}
+#finishBtn{background:var(--orange);color:#fff;border:none;border-radius:999px;padding:8px 20px;font-family:inherit;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 3px 0 #d96f25}
+#finishBtn:active{transform:translateY(2px);box-shadow:none}
+/* ---------- tabs ---------- */
+nav.tabbar{background:var(--blue);display:flex;overflow-x:auto;position:sticky;top:0;z-index:50;scrollbar-width:none}
+nav.tabbar::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;color:#dce9fa;background:none;border:none;font-family:inherit;font-weight:700;font-size:15px;padding:14px 16px;cursor:pointer;border-bottom:4px solid transparent;white-space:nowrap}
+.tab.active{color:#fff;border-bottom-color:var(--yellow);background:rgba(255,255,255,.08)}
+/* ---------- sections ---------- */
+main{max-width:780px;margin:0 auto;padding:26px 14px 80px}
+section.topic{display:none}
+section.topic.active{display:block;animation:fade .35s}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.topic-head{text-align:center;margin-bottom:6px}
+.topic-head h2{color:var(--blue);font-size:clamp(22px,4vw,30px);font-weight:800}
+.topic-head .sub{color:var(--mut);font-size:15px;margin-bottom:14px}
+/* ---------- lesson ---------- */
+.lesson{background:var(--card);border-left:6px solid var(--blue2);border-radius:16px;padding:18px 20px;margin-bottom:20px;box-shadow:0 3px 12px rgba(28,79,143,.07)}
+.lesson h3{color:var(--navy);font-size:18px;margin-bottom:8px}
+.lesson p,.lesson li{font-size:15px;line-height:1.55}
+.lesson ul{margin:6px 0 6px 20px}
+.lesson .vn{color:var(--teal);font-size:14px;font-weight:600}
+.lesson .figs{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin:12px 0 4px}
+.lesson .fig{text-align:center;font-size:12.5px;color:var(--mut);font-weight:600}
+.lesson .memo{background:#f1e9ff;border-radius:10px;padding:10px 14px;margin-top:10px;color:#5b3fa8;font-weight:700;font-size:14.5px}
+/* ---------- question cards ---------- */
+.dang-title{display:flex;align-items:center;gap:10px;margin:26px 0 12px;color:var(--navy);font-weight:800;font-size:17px}
+.dang-title::after{content:"";flex:1;height:2px;background:#cfe3f7;border-radius:2px}
+.qcard{background:var(--card);border-radius:16px;padding:18px 20px;margin-bottom:18px;box-shadow:0 3px 12px rgba(28,79,143,.07);border-top:5px solid var(--blue2)}
+.qcard .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.badge{font-size:12px;font-weight:800;border-radius:999px;padding:3px 11px}
+.badge.qnum{background:var(--blue);color:#fff}
+.badge.grade{background:#e6f7ef;color:#0e7a44}
+.badge.dang{background:#fff1d6;color:#a36a00}
+.qcard .qtext{font-size:16.5px;font-weight:700;line-height:1.45}
+.qcard .qvn{color:var(--teal);font-size:13.5px;font-weight:600;margin-top:3px}
+.qcard .qfig{text-align:center;margin:12px 0}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.opts button{font-family:inherit;font-size:15px;font-weight:700;color:var(--ink);background:#f3f8fe;border:2px solid #d7e7f8;border-radius:12px;padding:11px 12px;cursor:pointer;transition:.15s}
+.opts button:hover:not(:disabled){border-color:var(--blue2);background:#e8f3fd}
+.opts button.correct{background:#d8f5e6;border-color:var(--green);color:#0e7a44}
+.opts button.wrong{background:#ffe3e4;border-color:var(--red);color:#b22}
+.opts button:disabled{cursor:default;opacity:.92}
+.explain{display:none;margin-top:12px;border-radius:12px;padding:12px 14px;font-size:14.5px;line-height:1.5;background:#f1f7ff;border:1.5px dashed #9ec7ef}
+.explain.show{display:block;animation:fade .3s}
+.explain .ok{color:var(--green);font-weight:800}
+.explain .no{color:var(--red);font-weight:800}
+/* ---------- games ---------- */
+.game-card{background:var(--card);border-radius:18px;padding:20px;margin-bottom:24px;box-shadow:0 3px 14px rgba(28,79,143,.09);text-align:center}
+.game-card h3{color:var(--purple);font-size:21px;margin-bottom:4px}
+.game-card .gdesc{color:var(--mut);font-size:14.5px;margin-bottom:12px}
+.game-stat{font-weight:800;color:var(--navy);margin-bottom:12px}
+.mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:520px;margin:0 auto}
+.mem-card{aspect-ratio:1;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,#7b5ce0,#5a3fc0);color:#fff;font-size:26px;font-weight:800;font-family:inherit;display:flex;align-items:center;justify-content:center;transition:.2s;padding:4px}
+.mem-card.flipped{background:#fff;border:2.5px solid var(--purple);color:var(--ink);font-size:12.5px}
+.mem-card.matched{background:#d8f5e6;border:2.5px solid var(--green);cursor:default}
+.mem-card svg{max-width:80%;max-height:80%}
+.gbtn{background:var(--blue2);color:#fff;border:none;border-radius:999px;padding:10px 26px;font-family:inherit;font-weight:800;font-size:15.5px;cursor:pointer;box-shadow:0 3px 0 #2a6cb0;margin-top:14px}
+.gbtn:active{transform:translateY(2px);box-shadow:none}
+.gbtn.purple{background:var(--purple);box-shadow:0 3px 0 #5a3fc0}
+.game-play{margin-top:8px}
+.choice-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.choice-row button{font-family:inherit;font-weight:800;font-size:15px;border:2px solid #d7e7f8;background:#f3f8fe;border-radius:12px;padding:10px 18px;cursor:pointer}
+.choice-row button:hover{border-color:var(--blue2)}
+.num-input{font-family:inherit;font-size:18px;font-weight:800;text-align:center;width:120px;padding:9px;border:2.5px solid #d7e7f8;border-radius:12px;outline-color:var(--blue2)}
+.flash-ok{animation:okf .5s}.flash-no{animation:nof .5s}
+@keyframes okf{0%{background:#d8f5e6}100%{background:transparent}}
+@keyframes nof{0%{background:#ffe3e4}100%{background:transparent}}
+/* ---------- results & leaderboard ---------- */
+.result-card{background:linear-gradient(135deg,#fff,#f0f7ff);border:2.5px solid var(--blue2);border-radius:20px;padding:24px;text-align:center;margin-bottom:22px;box-shadow:0 4px 16px rgba(28,79,143,.12)}
+.result-card h3{color:var(--blue);font-size:24px}
+.result-card .who{font-size:16px;color:var(--mut);font-weight:700;margin:4px 0 14px}
+.rgrid{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+.rbox{background:#fff;border-radius:14px;padding:12px 18px;min-width:110px;box-shadow:0 2px 8px rgba(28,79,143,.1)}
+.rbox .big{font-size:26px;font-weight:800;color:var(--navy)}
+.rbox .lbl{font-size:12.5px;color:var(--mut);font-weight:700}
+.rbtns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.board-table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 3px 12px rgba(28,79,143,.08)}
+.board-table th{background:var(--blue);color:#fff;padding:10px 8px;font-size:14px}
+.board-table td{padding:9px 8px;text-align:center;font-size:14.5px;border-bottom:1px solid #e8f1fb;font-weight:600}
+.board-table tr:nth-child(even) td{background:#f6fafe}
+.board-table .me td{background:#fff6dd}
+/* ---------- review ---------- */
+.review-q{background:#fff;border-radius:14px;padding:16px 18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(28,79,143,.07);border-left:6px solid var(--green)}
+.review-q.was-wrong{border-left-color:var(--red)}
+.review-q.skipped{border-left-color:#c5d3e8}
+.review-q .rq-head{font-weight:800;font-size:15px;margin-bottom:6px}
+.review-q .rq-ans{font-size:14.5px;margin:4px 0}
+.rv-block{border-radius:10px;padding:9px 12px;font-size:14px;line-height:1.55;margin-top:8px}
+.rv-block b{display:block;margin-bottom:2px}
+.rv-vocab{background:#eef9f4;color:#0e6e44}
+.rv-why{background:#fff7e6;color:#8a5a00}
+.rv-how{background:#f0edfd;color:#4b3597}
+.filter-row{display:flex;gap:8px;justify-content:center;margin:14px 0;flex-wrap:wrap}
+.filter-row button{font-family:inherit;font-weight:700;border-radius:999px;border:2px solid #cfe3f7;background:#fff;padding:6px 16px;cursor:pointer;font-size:14px}
+.filter-row button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+/* ---------- modal ---------- */
+.modal-bg{position:fixed;inset:0;background:rgba(20,40,70,.55);display:none;align-items:center;justify-content:center;z-index:200;padding:16px}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border-radius:20px;max-width:420px;width:100%;padding:26px;text-align:center;animation:fade .3s}
+.modal h3{color:var(--blue);font-size:22px;margin-bottom:4px}
+.modal p{color:var(--mut);font-size:14px;margin-bottom:14px}
+.modal input{width:100%;font-family:inherit;font-size:16px;font-weight:700;padding:11px 14px;border:2.5px solid #d7e7f8;border-radius:12px;margin-bottom:10px;outline-color:var(--blue2)}
+.modal .err{color:var(--red);font-size:13.5px;font-weight:700;min-height:18px;margin-bottom:4px}
+footer{text-align:center;color:var(--mut);font-size:13px;padding:18px}
+@media(max-width:540px){
+  .opts{grid-template-columns:1fr}
+  .mem-grid{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== student info modal ===== -->
+<div class="modal-bg show" id="infoModal">
+  <div class="modal">
+    <div style="font-size:46px">📐</div>
+    <h3>Geometry Quest</h3>
+    <p>Nhập tên và số điện thoại để bắt đầu luyện tập nhé!<br>Enter your name &amp; phone number to start!</p>
+    <input id="inpName" type="text" maxlength="40" placeholder="Họ và tên / Full name">
+    <input id="inpPhone" type="tel" maxlength="11" placeholder="Số điện thoại / Phone (09xxxxxxxx)">
+    <div class="err" id="infoErr"></div>
+    <button class="gbtn" id="startBtn">🚀 Bắt đầu / Start!</button>
+  </div>
+</div>
+
+<header>
+  <svg class="shapes" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="60" r="34" fill="#fff"/><rect x="640" y="30" width="64" height="64" rx="8" fill="#fff" transform="rotate(18 672 62)"/>
+    <polygon points="300,30 340,95 260,95" fill="#fff"/><polygon points="540,160 575,195 540,230 505,195" fill="#fff"/>
+    <rect x="150" y="150" width="70" height="46" rx="6" fill="#fff"/><circle cx="720" cy="170" r="26" fill="#fff"/>
+    <polygon points="420,140 470,140 455,185 405,185" fill="#fff"/>
+  </svg>
+  <h1>📐 Geometry Quest – Grade 4 &amp; 5</h1>
+  <p>Everyday Mathematics • Lines, angles, shapes, area, volume &amp; coordinates — learn, practice &amp; play!</p>
+  <div class="student-chip" id="studentChip" title="Đổi học sinh / Change student">👤 <span id="chipName">—</span> ✏️</div>
+</header>
+
+<div class="statbar">
+  <div class="stat">⭐ Score: <span class="pill" id="stScore">0</span></div>
+  <div class="stat">✅ Correct: <span class="pill green" id="stCorrect">0</span></div>
+  <div class="stat">🎯 Streak: <span class="pill" id="stStreak">0</span></div>
+  <div class="stat">📝 Done: <span class="pill" id="stDone">0/36</span></div>
+  <button id="finishBtn">🏁 Nộp bài / Finish</button>
+</div>
+
+<nav class="tabbar" id="tabbar">
+  <button class="tab active" data-t="angles">📏 Lines &amp; Angles</button>
+  <button class="tab" data-t="tri">🔺 Triangles</button>
+  <button class="tab" data-t="quad">⬜ Quadrilaterals</button>
+  <button class="tab" data-t="area">📐 Perimeter &amp; Area</button>
+  <button class="tab" data-t="vol">🧊 Volume</button>
+  <button class="tab" data-t="coord">🗺️ Coordinates</button>
+  <button class="tab" data-t="games">🎮 Games</button>
+  <button class="tab" data-t="board">🏆 Kết quả &amp; Xếp hạng</button>
+</nav>
+
+<main>
+
+<!-- ============ LINES & ANGLES ============ -->
+<section class="topic active" id="topic-angles">
+  <div class="topic-head"><h2>📏 Lines, Rays &amp; Angles</h2><div class="sub">Đường thẳng, tia, đoạn thẳng và góc (Grade 4 • Unit 1, 6)</div></div>
+  <div class="lesson">
+    <h3>📌 Key ideas / Kiến thức chính</h3>
+    <ul>
+      <li><b>Line segment</b> — 2 endpoints. <span class="vn">Đoạn thẳng — có 2 điểm đầu mút.</span></li>
+      <li><b>Ray</b> — 1 endpoint, goes on forever in one direction. <span class="vn">Tia — 1 điểm gốc, kéo dài mãi về một phía.</span></li>
+      <li><b>Line</b> — no endpoints, goes on forever both ways. <span class="vn">Đường thẳng — kéo dài mãi về hai phía.</span></li>
+      <li><b>Right angle</b> = 90° • <b>Acute</b> &lt; 90° • <b>Obtuse</b> &gt; 90° • <b>Straight</b> = 180°. <span class="vn">Góc vuông • nhọn • tù • bẹt.</span></li>
+      <li><b>Parallel lines</b> never meet; <b>perpendicular lines</b> cross at 90°. <span class="vn">Song song — không bao giờ cắt nhau; vuông góc — cắt nhau tạo góc 90°.</span></li>
+    </ul>
+    <div class="figs">
+      <div class="fig"><svg width="110" height="34" viewBox="0 0 110 34"><line x1="12" y1="17" x2="98" y2="17" stroke="#2f7fd1" stroke-width="3"/><circle cx="12" cy="17" r="4.5" fill="#2f7fd1"/><circle cx="98" cy="17" r="4.5" fill="#2f7fd1"/></svg><br>segment / đoạn thẳng</div>
+      <div class="fig"><svg width="110" height="34" viewBox="0 0 110 34"><line x1="12" y1="17" x2="94" y2="17" stroke="#19a7a0" stroke-width="3"/><circle cx="12" cy="17" r="4.5" fill="#19a7a0"/><polygon points="92,10 106,17 92,24" fill="#19a7a0"/></svg><br>ray / tia</div>
+      <div class="fig"><svg width="110" height="34" viewBox="0 0 110 34"><line x1="16" y1="17" x2="94" y2="17" stroke="#7b5ce0" stroke-width="3"/><polygon points="18,10 4,17 18,24" fill="#7b5ce0"/><polygon points="92,10 106,17 92,24" fill="#7b5ce0"/></svg><br>line / đường thẳng</div>
+      <div class="fig"><svg width="84" height="74" viewBox="0 0 84 74"><line x1="10" y1="64" x2="76" y2="64" stroke="#ff8c42" stroke-width="3"/><line x1="10" y1="64" x2="10" y2="6" stroke="#ff8c42" stroke-width="3"/><rect x="10" y="50" width="14" height="14" fill="none" stroke="#ff8c42" stroke-width="2"/></svg><br>right 90° / góc vuông</div>
+      <div class="fig"><svg width="84" height="74" viewBox="0 0 84 74"><line x1="8" y1="64" x2="78" y2="64" stroke="#2eb872" stroke-width="3"/><line x1="8" y1="64" x2="58" y2="14" stroke="#2eb872" stroke-width="3"/><path d="M 30 64 A 22 22 0 0 0 23 49" fill="none" stroke="#2eb872" stroke-width="2"/></svg><br>acute &lt;90° / góc nhọn</div>
+      <div class="fig"><svg width="98" height="74" viewBox="0 0 98 74"><line x1="44" y1="64" x2="94" y2="64" stroke="#ef5d60" stroke-width="3"/><line x1="44" y1="64" x2="8" y2="22" stroke="#ef5d60" stroke-width="3"/><path d="M 66 64 A 22 22 0 0 0 30 48" fill="none" stroke="#ef5d60" stroke-width="2"/></svg><br>obtuse &gt;90° / góc tù</div>
+    </div>
+    <div class="memo">💜 Ghi nhớ: Kim đồng hồ lúc 3:00 tạo góc vuông 90°. A full turn / vòng tròn đầy đủ = 360°.</div>
+  </div>
+  <div id="qs-angles"></div>
+</section>
+
+<!-- ============ TRIANGLES ============ -->
+<section class="topic" id="topic-tri">
+  <div class="topic-head"><h2>🔺 Triangles</h2><div class="sub">Tam giác — phân loại theo cạnh &amp; góc (Grade 4–5)</div></div>
+  <div class="lesson">
+    <h3>📌 Key ideas / Kiến thức chính</h3>
+    <ul>
+      <li>By sides / theo cạnh: <b>equilateral</b> (3 equal sides) • <b>isosceles</b> (at least 2 equal) • <b>scalene</b> (no equal sides). <span class="vn">Tam giác đều • cân • thường.</span></li>
+      <li>By angles / theo góc: <b>right</b> (1 góc 90°) • <b>acute</b> (3 góc nhọn) • <b>obtuse</b> (1 góc tù).</li>
+      <li>The 3 angles of any triangle add up to <b>180°</b>. <span class="vn">Tổng 3 góc trong tam giác = 180°.</span></li>
+    </ul>
+    <div class="figs">
+      <div class="fig"><svg width="90" height="76" viewBox="0 0 90 76"><polygon points="45,8 8,68 82,68" fill="#dff0fd" stroke="#2f7fd1" stroke-width="3"/><line x1="22" y1="36" x2="30" y2="41" stroke="#2f7fd1" stroke-width="2.5"/><line x1="60" y1="41" x2="68" y2="36" stroke="#2f7fd1" stroke-width="2.5"/><line x1="41" y1="73" x2="49" y2="63" stroke="#2f7fd1" stroke-width="2.5"/></svg><br>equilateral / đều</div>
+      <div class="fig"><svg width="90" height="76" viewBox="0 0 90 76"><polygon points="45,8 20,68 70,68" fill="#e6fbf0" stroke="#2eb872" stroke-width="3"/></svg><br>isosceles / cân</div>
+      <div class="fig"><svg width="90" height="76" viewBox="0 0 90 76"><polygon points="12,12 12,68 80,68" fill="#fff0e2" stroke="#ff8c42" stroke-width="3"/><rect x="12" y="56" width="12" height="12" fill="none" stroke="#ff8c42" stroke-width="2"/></svg><br>right / vuông</div>
+      <div class="fig"><svg width="100" height="76" viewBox="0 0 100 76"><polygon points="8,68 92,68 70,22" fill="#f4eefe" stroke="#7b5ce0" stroke-width="3"/></svg><br>scalene / thường</div>
+    </div>
+    <div class="memo">💜 Mẹo: Biết 2 góc → góc còn lại = 180° − (góc 1 + góc 2).</div>
+  </div>
+  <div id="qs-tri"></div>
+</section>
+
+<!-- ============ QUADRILATERALS ============ -->
+<section class="topic" id="topic-quad">
+  <div class="topic-head"><h2>⬜ Quadrilaterals</h2><div class="sub">Tứ giác và "gia đình" tứ giác (Grade 4–5)</div></div>
+  <div class="lesson">
+    <h3>📌 The quadrilateral family / Gia đình tứ giác</h3>
+    <ul>
+      <li><b>Quadrilateral</b> — any shape with 4 sides; angles add up to <b>360°</b>. <span class="vn">Tứ giác — 4 cạnh, tổng các góc = 360°.</span></li>
+      <li><b>Trapezoid</b> — has at least 1 pair of parallel sides. <span class="vn">Hình thang — có ít nhất 1 cặp cạnh song song.</span></li>
+      <li><b>Parallelogram</b> — 2 pairs of parallel sides; opposite sides equal. <span class="vn">Hình bình hành.</span></li>
+      <li><b>Rectangle</b> — parallelogram with 4 right angles. <span class="vn">Hình chữ nhật.</span> • <b>Rhombus</b> — parallelogram with 4 equal sides. <span class="vn">Hình thoi.</span></li>
+      <li><b>Square</b> — 4 equal sides AND 4 right angles → it is also a rectangle &amp; a rhombus! <span class="vn">Hình vuông vừa là HCN vừa là hình thoi.</span></li>
+    </ul>
+    <div class="figs">
+      <div class="fig"><svg width="80" height="66" viewBox="0 0 80 66"><rect x="15" y="8" width="50" height="50" fill="#dff0fd" stroke="#2f7fd1" stroke-width="3"/></svg><br>square / vuông</div>
+      <div class="fig"><svg width="96" height="66" viewBox="0 0 96 66"><rect x="8" y="14" width="80" height="38" fill="#e6fbf0" stroke="#2eb872" stroke-width="3"/></svg><br>rectangle / chữ nhật</div>
+      <div class="fig"><svg width="100" height="66" viewBox="0 0 100 66"><polygon points="24,10 94,10 76,58 6,58" fill="#fff0e2" stroke="#ff8c42" stroke-width="3"/></svg><br>parallelogram / bình hành</div>
+      <div class="fig"><svg width="86" height="72" viewBox="0 0 86 72"><polygon points="43,6 78,36 43,66 8,36" fill="#f4eefe" stroke="#7b5ce0" stroke-width="3"/></svg><br>rhombus / thoi</div>
+      <div class="fig"><svg width="96" height="66" viewBox="0 0 96 66"><polygon points="28,10 68,10 90,58 6,58" fill="#ffeef0" stroke="#ef5d60" stroke-width="3"/></svg><br>trapezoid / thang</div>
+    </div>
+    <div class="memo">💜 Ghi nhớ: Every square is a rectangle, but not every rectangle is a square! (Mọi hình vuông đều là hình chữ nhật.)</div>
+  </div>
+  <div id="qs-quad"></div>
+</section>
+
+<!-- ============ PERIMETER & AREA ============ -->
+<section class="topic" id="topic-area">
+  <div class="topic-head"><h2>📐 Perimeter &amp; Area</h2><div class="sub">Chu vi &amp; diện tích (Grade 4 • Unit 4, Grade 5 fractional sides)</div></div>
+  <div class="lesson">
+    <h3>📌 Formulas / Công thức</h3>
+    <ul>
+      <li><b>Perimeter</b> = distance around: P = 2 × (l + w). <span class="vn">Chu vi HCN = 2 × (dài + rộng). Đơn vị: cm, m…</span></li>
+      <li><b>Area</b> = space inside: A = l × w. <span class="vn">Diện tích HCN = dài × rộng. Đơn vị: cm², m²…</span></li>
+      <li>Odd "L" shapes: split into rectangles, find each area, then <b>add</b>. <span class="vn">Hình chữ L: chia thành các HCN rồi cộng diện tích.</span></li>
+    </ul>
+    <div class="figs">
+      <div class="fig"><svg width="170" height="110" viewBox="0 0 170 110"><rect x="20" y="18" width="132" height="66" fill="#dff0fd" stroke="#2f7fd1" stroke-width="3"/><line x1="42" y1="18" x2="42" y2="84" stroke="#9ec7ef" stroke-width="1.5"/><line x1="64" y1="18" x2="64" y2="84" stroke="#9ec7ef" stroke-width="1.5"/><line x1="86" y1="18" x2="86" y2="84" stroke="#9ec7ef" stroke-width="1.5"/><line x1="108" y1="18" x2="108" y2="84" stroke="#9ec7ef" stroke-width="1.5"/><line x1="130" y1="18" x2="130" y2="84" stroke="#9ec7ef" stroke-width="1.5"/><line x1="20" y1="40" x2="152" y2="40" stroke="#9ec7ef" stroke-width="1.5"/><line x1="20" y1="62" x2="152" y2="62" stroke="#9ec7ef" stroke-width="1.5"/><text x="86" y="101" text-anchor="middle" font-size="13" font-weight="700" fill="#2b3a55">l = 6</text><text x="10" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#2b3a55">3</text></svg><br>A = 6 × 3 = 18 sq units</div>
+    </div>
+    <div class="memo">💜 Perimeter (chu vi) đo bằng cm, m • Area (diện tích) đo bằng cm², m² — đừng nhầm nhé!</div>
+  </div>
+  <div id="qs-area"></div>
+</section>
+
+<!-- ============ VOLUME ============ -->
+<section class="topic" id="topic-vol">
+  <div class="topic-head"><h2>🧊 Volume</h2><div class="sub">Thể tích hình hộp chữ nhật (Grade 5 • Unit 1)</div></div>
+  <div class="lesson">
+    <h3>📌 Key ideas / Kiến thức chính</h3>
+    <ul>
+      <li><b>Volume</b> = number of unit cubes that fill a box. <span class="vn">Thể tích = số khối lập phương đơn vị lấp đầy hộp.</span></li>
+      <li>V = l × w × h (length × width × height). <span class="vn">V = dài × rộng × cao.</span></li>
+      <li>V = B × h, where B = area of the base. <span class="vn">V = diện tích đáy × chiều cao.</span></li>
+      <li>Units / đơn vị: cubic cm (cm³), cubic m (m³)…</li>
+    </ul>
+    <div class="figs">
+      <div class="fig"><svg width="150" height="110" viewBox="0 0 150 110"><polygon points="22,50 94,50 118,30 46,30" fill="#cfe9fc" stroke="#2f7fd1" stroke-width="2.5"/><polygon points="94,50 118,30 118,78 94,98" fill="#a8d4f5" stroke="#2f7fd1" stroke-width="2.5"/><rect x="22" y="50" width="72" height="48" fill="#dff0fd" stroke="#2f7fd1" stroke-width="2.5"/><line x1="46" y1="50" x2="46" y2="98" stroke="#2f7fd1" stroke-width="1.3"/><line x1="70" y1="50" x2="70" y2="98" stroke="#2f7fd1" stroke-width="1.3"/><line x1="22" y1="74" x2="94" y2="74" stroke="#2f7fd1" stroke-width="1.3"/><line x1="34" y1="40" x2="106" y2="40" stroke="#2f7fd1" stroke-width="1.3"/><line x1="58" y1="30" x2="34" y2="50" stroke="#2f7fd1" stroke-width="1.3"/><line x1="82" y1="30" x2="58" y2="50" stroke="#2f7fd1" stroke-width="1.3"/><line x1="106" y1="30" x2="82" y2="50" stroke="#2f7fd1" stroke-width="1.3"/><line x1="106" y1="40" x2="106" y2="88" stroke="#2f7fd1" stroke-width="1.3"/><text x="58" y="109" text-anchor="middle" font-size="12" font-weight="700" fill="#2b3a55">l=3</text><text x="132" y="60" font-size="12" font-weight="700" fill="#2b3a55">h=2</text><text x="118" y="22" font-size="12" font-weight="700" fill="#2b3a55">w=2</text></svg><br>V = 3 × 2 × 2 = 12 cubes</div>
+    </div>
+    <div class="memo">💜 Thiếu 1 kích thước? Lấy V chia cho 2 kích thước đã biết: h = V ÷ (l × w).</div>
+  </div>
+  <div id="qs-vol"></div>
+</section>
+
+<!-- ============ COORDINATES ============ -->
+<section class="topic" id="topic-coord">
+  <div class="topic-head"><h2>🗺️ Coordinate Grid</h2><div class="sub">Lưới tọa độ — góc phần tư thứ nhất (Grade 5 • Unit 4)</div></div>
+  <div class="lesson">
+    <h3>📌 Key ideas / Kiến thức chính</h3>
+    <ul>
+      <li>An ordered pair <b>(x, y)</b>: go <b>right x</b>, then <b>up y</b>. <span class="vn">Cặp tọa độ (x, y): đi sang phải x ô, rồi đi lên y ô. "Over then up!"</span></li>
+      <li><b>x-axis</b> = horizontal / trục ngang • <b>y-axis</b> = vertical / trục dọc.</li>
+      <li>The <b>origin</b> is (0, 0) — where the axes meet. <span class="vn">Gốc tọa độ (0,0).</span></li>
+    </ul>
+    <div class="figs">
+      <div class="fig"><svg width="170" height="150" viewBox="0 0 170 150"><g stroke="#cfe3f7" stroke-width="1.5"><line x1="30" y1="10" x2="30" y2="130"/><line x1="54" y1="10" x2="54" y2="130"/><line x1="78" y1="10" x2="78" y2="130"/><line x1="102" y1="10" x2="102" y2="130"/><line x1="126" y1="10" x2="126" y2="130"/><line x1="150" y1="10" x2="150" y2="130"/><line x1="30" y1="10" x2="150" y2="10"/><line x1="30" y1="34" x2="150" y2="34"/><line x1="30" y1="58" x2="150" y2="58"/><line x1="30" y1="82" x2="150" y2="82"/><line x1="30" y1="106" x2="150" y2="106"/></g><line x1="30" y1="130" x2="155" y2="130" stroke="#2b3a55" stroke-width="2.5"/><line x1="30" y1="130" x2="30" y2="6" stroke="#2b3a55" stroke-width="2.5"/><circle cx="102" cy="58" r="6" fill="#ef5d60"/><text x="110" y="52" font-size="12" font-weight="800" fill="#ef5d60">(3, 3)</text><text x="26" y="144" font-size="11" font-weight="700" fill="#6b7a99">0</text><text x="99" y="144" font-size="11" font-weight="700" fill="#6b7a99">3</text><text x="14" y="62" font-size="11" font-weight="700" fill="#6b7a99">3</text><text x="158" y="134" font-size="12" font-weight="800" fill="#2b3a55">x</text><text x="24" y="12" font-size="12" font-weight="800" fill="#2b3a55">y</text></svg><br>"over 3, up 3" → (3, 3)</div>
+    </div>
+    <div class="memo">💜 Mẹo nhớ: (x, y) — "x trước, y sau" = "sang ngang trước, đi lên sau".</div>
+  </div>
+  <div id="qs-coord"></div>
+</section>
+
+<!-- ============ GAMES ============ -->
+<section class="topic" id="topic-games">
+  <div class="topic-head"><h2>🎮 Geometry Games!</h2><div class="sub">Chơi game kiếm thêm điểm! Điểm game cộng thẳng vào Score ⭐</div></div>
+
+  <div class="game-card">
+    <h3>🃏 Shape Match</h3>
+    <div class="gdesc">Lật 2 thẻ để ghép hình với tên của nó. Ghép đủ 6 cặp để +30 ⭐!<br>Flip two cards — match each shape with its name!</div>
+    <div class="game-stat">Pairs: <span id="memPairs">0</span>/6 &nbsp;|&nbsp; Mistakes: <span id="memMiss">0</span></div>
+    <div class="mem-grid" id="memGrid"></div>
+    <button class="gbtn purple" id="memNew">🔄 New Game</button>
+  </div>
+
+  <div class="game-card">
+    <h3>⚡ Angle Dash</h3>
+    <div class="gdesc">45 giây — nhìn góc và chọn loại đúng càng nhanh càng tốt! +5 ⭐ mỗi câu đúng.<br>Classify each angle as fast as you can!</div>
+    <div class="game-stat">⏱ <span id="adTime">45</span>s &nbsp;|&nbsp; Correct: <span id="adScore">0</span></div>
+    <div class="game-play" id="adArea"><button class="gbtn" id="adStart">▶ Start!</button></div>
+  </div>
+
+  <div class="game-card">
+    <h3>🧊 Cube Counter</h3>
+    <div class="gdesc">45 giây — tính nhanh thể tích V = l × w × h. +5 ⭐ mỗi câu đúng.<br>Find the volume of each box before time runs out!</div>
+    <div class="game-stat">⏱ <span id="ccTime">45</span>s &nbsp;|&nbsp; Correct: <span id="ccScore">0</span></div>
+    <div class="game-play" id="ccArea"><button class="gbtn" id="ccStart">▶ Start!</button></div>
+  </div>
+</section>
+
+<!-- ============ RESULTS & LEADERBOARD ============ -->
+<section class="topic" id="topic-board">
+  <div class="topic-head"><h2>🏆 Kết quả &amp; Bảng xếp hạng</h2><div class="sub">Results &amp; Leaderboard</div></div>
+  <div id="resultArea"><div class="lesson" style="text-align:center">📝 Làm bài xong, bấm <b>🏁 Nộp bài / Finish</b> ở thanh trên để xem kết quả, lời giải chi tiết và lưu vào bảng xếp hạng nhé!</div></div>
+  <h3 style="color:var(--navy);margin:18px 0 10px">🥇 Bảng xếp hạng (trên thiết bị này)</h3>
+  <div id="boardWrap"></div>
+  <div id="reviewSection" style="display:none">
+    <h3 style="color:var(--navy);margin:24px 0 4px">📚 Giải thích chi tiết / Detailed review</h3>
+    <p style="color:var(--mut);font-size:14px">Mỗi câu gồm: 📖 Vocabulary (từ vựng) • 💡 Why (lý do) • ✍️ How to write it (cách trình bày).</p>
+    <div class="filter-row">
+      <button class="on" data-f="all">Tất cả</button>
+      <button data-f="wrong">❌ Câu sai</button>
+      <button data-f="right">✅ Câu đúng</button>
+    </div>
+    <div id="reviewWrap"></div>
+  </div>
+</section>
+
+</main>
+<footer>Geometry Quest • Everyday Mathematics Grades 4–5 • Made with 💙 for Mr Nguyen Vu's students</footer>
+<script>
+/* ================= FIGURES (SVG) ================= */
+const FIG = {
+ray:'<svg width="150" height="46" viewBox="0 0 150 46"><circle cx="18" cy="22" r="5" fill="#19a7a0"/><line x1="18" y1="22" x2="126" y2="22" stroke="#19a7a0" stroke-width="3.5"/><polygon points="124,13 142,22 124,31" fill="#19a7a0"/><text x="12" y="42" font-size="13" font-weight="700" fill="#6b7a99">B</text><text x="118" y="42" font-size="13" font-weight="700" fill="#6b7a99">A</text></svg>',
+acute45:'<svg width="120" height="92" viewBox="0 0 120 92"><line x1="16" y1="78" x2="106" y2="78" stroke="#2eb872" stroke-width="3.5"/><line x1="16" y1="78" x2="76" y2="18" stroke="#2eb872" stroke-width="3.5"/><path d="M 46 78 A 30 30 0 0 0 38 57" fill="none" stroke="#2eb872" stroke-width="2.5"/><circle cx="16" cy="78" r="4" fill="#2eb872"/></svg>',
+parallel:'<svg width="150" height="70" viewBox="0 0 150 70"><line x1="18" y1="20" x2="132" y2="20" stroke="#2f7fd1" stroke-width="3.5"/><polygon points="130,13 144,20 130,27" fill="#2f7fd1"/><polygon points="20,13 6,20 20,27" fill="#2f7fd1"/><line x1="18" y1="52" x2="132" y2="52" stroke="#2f7fd1" stroke-width="3.5"/><polygon points="130,45 144,52 130,59" fill="#2f7fd1"/><polygon points="20,45 6,52 20,59" fill="#2f7fd1"/></svg>',
+split:'<svg width="140" height="100" viewBox="0 0 140 100"><line x1="16" y1="80" x2="112" y2="80" stroke="#ff8c42" stroke-width="3"/><line x1="16" y1="80" x2="16" y2="10" stroke="#ff8c42" stroke-width="3"/><line x1="16" y1="80" x2="80" y2="35" stroke="#7b5ce0" stroke-width="3" stroke-dasharray="6 4"/><circle cx="16" cy="80" r="4" fill="#2b3a55"/><text x="106" y="95" font-size="12" font-weight="800" fill="#2b3a55">A</text><text x="6" y="95" font-size="12" font-weight="800" fill="#2b3a55">B</text><text x="8" y="12" font-size="12" font-weight="800" fill="#2b3a55">C</text><text x="84" y="32" font-size="12" font-weight="800" fill="#7b5ce0">D</text><text x="52" y="74" font-size="12" font-weight="800" fill="#a36a00">35°</text><text x="28" y="46" font-size="12" font-weight="800" fill="#5b3fa8">55°</text></svg>',
+clock:'<svg width="110" height="110" viewBox="0 0 110 110"><circle cx="55" cy="55" r="46" fill="#fff" stroke="#2f7fd1" stroke-width="4"/><text x="55" y="22" text-anchor="middle" font-size="13" font-weight="800" fill="#2b3a55">12</text><text x="94" y="60" text-anchor="middle" font-size="13" font-weight="800" fill="#2b3a55">3</text><text x="55" y="100" text-anchor="middle" font-size="13" font-weight="800" fill="#2b3a55">6</text><text x="16" y="60" text-anchor="middle" font-size="13" font-weight="800" fill="#2b3a55">9</text><line x1="55" y1="55" x2="55" y2="26" stroke="#ef5d60" stroke-width="4" stroke-linecap="round"/><line x1="55" y1="55" x2="82" y2="55" stroke="#2b3a55" stroke-width="5" stroke-linecap="round"/><rect x="55" y="44" width="11" height="11" fill="none" stroke="#2eb872" stroke-width="2"/></svg>',
+equi:'<svg width="110" height="92" viewBox="0 0 110 92"><polygon points="55,8 12,82 98,82" fill="#dff0fd" stroke="#2f7fd1" stroke-width="3.5"/><line x1="28" y1="42" x2="38" y2="48" stroke="#2f7fd1" stroke-width="3"/><line x1="72" y1="48" x2="82" y2="42" stroke="#2f7fd1" stroke-width="3"/><line x1="51" y1="88" x2="59" y2="76" stroke="#2f7fd1" stroke-width="3"/></svg>',
+rightTri:'<svg width="120" height="92" viewBox="0 0 120 92"><polygon points="16,12 16,80 104,80" fill="#fff0e2" stroke="#ff8c42" stroke-width="3.5"/><rect x="16" y="66" width="14" height="14" fill="none" stroke="#ff8c42" stroke-width="2.5"/></svg>',
+tri9035:'<svg width="120" height="96" viewBox="0 0 120 96"><polygon points="16,14 16,82 104,82" fill="#dff0fd" stroke="#2f7fd1" stroke-width="3"/><rect x="16" y="68" width="14" height="14" fill="none" stroke="#2f7fd1" stroke-width="2.5"/><text x="74" y="76" font-size="13" font-weight="800" fill="#2b3a55">35°</text><text x="22" y="36" font-size="15" font-weight="800" fill="#ef5d60">?</text></svg>',
+iso65:'<svg width="120" height="92" viewBox="0 0 120 92"><polygon points="60,10 18,80 102,80" fill="#e6fbf0" stroke="#2eb872" stroke-width="3"/><text x="30" y="74" font-size="13" font-weight="800" fill="#2b3a55">65°</text><text x="72" y="74" font-size="13" font-weight="800" fill="#2b3a55">65°</text><text x="55" y="36" font-size="15" font-weight="800" fill="#ef5d60">?</text></svg>',
+rhomTick:'<svg width="110" height="86" viewBox="0 0 110 86"><polygon points="55,6 100,43 55,80 10,43" fill="#f4eefe" stroke="#7b5ce0" stroke-width="3.5"/><line x1="73" y1="20" x2="82" y2="29" stroke="#7b5ce0" stroke-width="3"/><line x1="82" y1="57" x2="73" y2="66" stroke="#7b5ce0" stroke-width="3"/><line x1="37" y1="66" x2="28" y2="57" stroke="#7b5ce0" stroke-width="3"/><line x1="28" y1="29" x2="37" y2="20" stroke="#7b5ce0" stroke-width="3"/></svg>',
+rect85:'<svg width="170" height="110" viewBox="0 0 170 110"><rect x="25" y="18" width="128" height="70" fill="#dff0fd" stroke="#2f7fd1" stroke-width="3.5"/><text x="89" y="106" text-anchor="middle" font-size="14" font-weight="800" fill="#2b3a55">8 cm</text><text x="13" y="58" text-anchor="middle" font-size="14" font-weight="800" fill="#2b3a55">5</text></svg>',
+rect74:'<svg width="160" height="100" viewBox="0 0 160 100"><rect x="25" y="16" width="115" height="62" fill="#e6fbf0" stroke="#2eb872" stroke-width="3.5"/><text x="82" y="96" text-anchor="middle" font-size="14" font-weight="800" fill="#2b3a55">7 cm</text><text x="13" y="52" text-anchor="middle" font-size="14" font-weight="800" fill="#2b3a55">4</text></svg>',
+lshape:'<svg width="170" height="136" viewBox="0 0 170 136"><polygon points="15,24 63,24 63,60 135,60 135,108 15,108" fill="#fff0e2" stroke="#ff8c42" stroke-width="3.5"/><line x1="15" y1="60" x2="63" y2="60" stroke="#ff8c42" stroke-width="2" stroke-dasharray="6 4"/><text x="39" y="18" text-anchor="middle" font-size="12.5" font-weight="800" fill="#2b3a55">4 m</text><text x="76" y="46" font-size="12.5" font-weight="800" fill="#2b3a55">3 m</text><text x="75" y="124" text-anchor="middle" font-size="12.5" font-weight="800" fill="#2b3a55">10 m</text><text x="142" y="88" font-size="12.5" font-weight="800" fill="#2b3a55">4 m</text></svg>',
+prism:'<svg width="160" height="116" viewBox="0 0 160 116"><polygon points="26,54 98,54 122,34 50,34" fill="#cfe9fc" stroke="#2f7fd1" stroke-width="2.5"/><polygon points="98,54 122,34 122,82 98,102" fill="#a8d4f5" stroke="#2f7fd1" stroke-width="2.5"/><rect x="26" y="54" width="72" height="48" fill="#dff0fd" stroke="#2f7fd1" stroke-width="2.5"/><line x1="50" y1="54" x2="50" y2="102" stroke="#2f7fd1" stroke-width="1.3"/><line x1="74" y1="54" x2="74" y2="102" stroke="#2f7fd1" stroke-width="1.3"/><line x1="26" y1="78" x2="98" y2="78" stroke="#2f7fd1" stroke-width="1.3"/><line x1="38" y1="44" x2="110" y2="44" stroke="#2f7fd1" stroke-width="1.3"/><line x1="62" y1="34" x2="38" y2="54" stroke="#2f7fd1" stroke-width="1.3"/><line x1="86" y1="34" x2="62" y2="54" stroke="#2f7fd1" stroke-width="1.3"/><line x1="110" y1="34" x2="86" y2="54" stroke="#2f7fd1" stroke-width="1.3"/><line x1="110" y1="44" x2="110" y2="92" stroke="#2f7fd1" stroke-width="1.3"/><line x1="98" y1="78" x2="122" y2="58" stroke="#2f7fd1" stroke-width="1.3"/></svg>',
+grid34:'<svg width="190" height="180" viewBox="0 0 190 180"><g stroke="#cfe3f7" stroke-width="1.5"><line x1="30" y1="150" x2="30" y2="40"/><line x1="52" y1="150" x2="52" y2="40"/><line x1="74" y1="150" x2="74" y2="40"/><line x1="96" y1="150" x2="96" y2="40"/><line x1="118" y1="150" x2="118" y2="40"/><line x1="140" y1="150" x2="140" y2="40"/><line x1="30" y1="40" x2="140" y2="40"/><line x1="30" y1="62" x2="140" y2="62"/><line x1="30" y1="84" x2="140" y2="84"/><line x1="30" y1="106" x2="140" y2="106"/><line x1="30" y1="128" x2="140" y2="128"/></g><line x1="30" y1="150" x2="148" y2="150" stroke="#2b3a55" stroke-width="2.5"/><line x1="30" y1="150" x2="30" y2="32" stroke="#2b3a55" stroke-width="2.5"/><text x="26" y="165" font-size="11" font-weight="700" fill="#6b7a99">0</text><text x="49" y="165" font-size="11" font-weight="700" fill="#6b7a99">1</text><text x="71" y="165" font-size="11" font-weight="700" fill="#6b7a99">2</text><text x="93" y="165" font-size="11" font-weight="700" fill="#6b7a99">3</text><text x="115" y="165" font-size="11" font-weight="700" fill="#6b7a99">4</text><text x="137" y="165" font-size="11" font-weight="700" fill="#6b7a99">5</text><text x="16" y="132" font-size="11" font-weight="700" fill="#6b7a99">1</text><text x="16" y="110" font-size="11" font-weight="700" fill="#6b7a99">2</text><text x="16" y="88" font-size="11" font-weight="700" fill="#6b7a99">3</text><text x="16" y="66" font-size="11" font-weight="700" fill="#6b7a99">4</text><text x="16" y="44" font-size="11" font-weight="700" fill="#6b7a99">5</text><circle cx="96" cy="62" r="6.5" fill="#ef5d60"/><text x="104" y="56" font-size="13" font-weight="800" fill="#ef5d60">P</text><text x="152" y="154" font-size="13" font-weight="800" fill="#2b3a55">x</text><text x="24" y="30" font-size="13" font-weight="800" fill="#2b3a55">y</text></svg>',
+gridRect:'<svg width="190" height="180" viewBox="0 0 190 180"><g stroke="#cfe3f7" stroke-width="1.5"><line x1="30" y1="150" x2="30" y2="40"/><line x1="52" y1="150" x2="52" y2="40"/><line x1="74" y1="150" x2="74" y2="40"/><line x1="96" y1="150" x2="96" y2="40"/><line x1="118" y1="150" x2="118" y2="40"/><line x1="140" y1="150" x2="140" y2="40"/><line x1="30" y1="40" x2="140" y2="40"/><line x1="30" y1="62" x2="140" y2="62"/><line x1="30" y1="84" x2="140" y2="84"/><line x1="30" y1="106" x2="140" y2="106"/><line x1="30" y1="128" x2="140" y2="128"/></g><line x1="30" y1="150" x2="148" y2="150" stroke="#2b3a55" stroke-width="2.5"/><line x1="30" y1="150" x2="30" y2="32" stroke="#2b3a55" stroke-width="2.5"/><polygon points="52,128 140,128 140,62 52,62" fill="rgba(46,184,114,.12)" stroke="#2eb872" stroke-width="1.5" stroke-dasharray="5 4"/><circle cx="52" cy="128" r="5.5" fill="#2f7fd1"/><circle cx="140" cy="128" r="5.5" fill="#2f7fd1"/><circle cx="140" cy="62" r="5.5" fill="#2f7fd1"/><circle cx="52" cy="62" r="7" fill="none" stroke="#ef5d60" stroke-width="2.5" stroke-dasharray="4 3"/><text x="40" y="143" font-size="11" font-weight="800" fill="#2f7fd1">(1,1)</text><text x="118" y="143" font-size="11" font-weight="800" fill="#2f7fd1">(5,1)</text><text x="118" y="54" font-size="11" font-weight="800" fill="#2f7fd1">(5,4)</text><text x="42" y="54" font-size="14" font-weight="800" fill="#ef5d60">?</text><text x="26" y="165" font-size="11" font-weight="700" fill="#6b7a99">0</text><text x="152" y="154" font-size="13" font-weight="800" fill="#2b3a55">x</text><text x="24" y="30" font-size="13" font-weight="800" fill="#2b3a55">y</text></svg>'
+};
+
+/* ================= QUESTIONS ================= */
+/* d: 1 = Nhận biết/Identify, 2 = Tính toán/Calculate, 3 = Toán đố/Word problems */
+const QS = [
+/* ---- LINES & ANGLES ---- */
+{t:'angles',d:1,g:'G4',svg:FIG.ray,
+ q:'Look at the figure. What is it called?', vn:'Hình bên gọi là gì?',
+ opts:['Line / Đường thẳng','Line segment / Đoạn thẳng','Ray / Tia','Angle / Góc'],a:2,
+ vocab:'ray = tia • endpoint = điểm gốc • arrow = mũi tên (đi mãi không dừng)',
+ why:'It has ONE endpoint (B) and an arrow on the other side → it starts at B and goes on forever in one direction. That is a ray. (Có 1 điểm gốc và 1 mũi tên → là tia.)',
+ how:'Viết: "The figure has one endpoint and goes on forever in one direction, so it is a ray BA." — Nêu dấu hiệu (1 điểm gốc + 1 mũi tên) rồi kết luận.'},
+{t:'angles',d:1,g:'G4',svg:FIG.acute45,
+ q:'This angle measures about 45°. What kind of angle is it?', vn:'Góc này khoảng 45°. Đây là góc gì?',
+ opts:['Right angle / Góc vuông','Acute angle / Góc nhọn','Obtuse angle / Góc tù','Straight angle / Góc bẹt'],a:1,
+ vocab:'acute angle = góc nhọn • measure = số đo • less than = nhỏ hơn',
+ why:'45° is less than 90°, and any angle smaller than a right angle is acute. (45° < 90° → góc nhọn.)',
+ how:'Viết: "45° < 90°, so it is an acute angle." — So sánh số đo với 90° rồi kết luận.'},
+{t:'angles',d:1,g:'G4',svg:FIG.parallel,
+ q:'These two lines will NEVER meet, no matter how far they go. They are…', vn:'Hai đường này kéo dài mãi cũng không bao giờ cắt nhau. Chúng là…',
+ opts:['Parallel lines / Song song','Perpendicular lines / Vuông góc','Intersecting lines / Cắt nhau','Rays / Hai tia'],a:0,
+ vocab:'parallel = song song • perpendicular = vuông góc • intersect = cắt nhau',
+ why:'Lines that stay the same distance apart and never cross are parallel. (Luôn cách đều nhau, không bao giờ cắt → song song.)',
+ how:'Viết: "The lines never intersect, so they are parallel lines." Ký hiệu: AB ∥ CD.'},
+{t:'angles',d:2,g:'G4',svg:null,
+ q:'An angle measures 125°. What kind of angle is it?', vn:'Một góc có số đo 125°. Đó là góc gì?',
+ opts:['Right / Vuông','Acute / Nhọn','Obtuse / Tù','Straight / Bẹt'],a:2,
+ vocab:'obtuse angle = góc tù • between = nằm giữa • greater than = lớn hơn',
+ why:'125° is greater than 90° but less than 180° → obtuse. (90° < 125° < 180° → góc tù.)',
+ how:'Viết: "90° < 125° < 180°, so the angle is obtuse." — Luôn kẹp số đo giữa 90° và 180° để chứng minh.'},
+{t:'angles',d:2,g:'G4',svg:FIG.split,
+ q:'Ray BD splits angle ABC. If ∠ABD = 35° and ∠DBC = 55°, what is the whole angle ABC?', vn:'Tia BD chia góc ABC. Biết ∠ABD = 35° và ∠DBC = 55°, góc ABC bằng bao nhiêu?',
+ opts:['80°','90°','100°','120°'],a:1,
+ vocab:'whole angle = góc lớn (toàn phần) • part = phần • add = cộng',
+ why:'Angle measures are additive: the whole angle = sum of its parts. 35° + 55° = 90°. (Góc lớn = tổng các góc nhỏ.)',
+ how:'Viết phép tính: ∠ABC = ∠ABD + ∠DBC = 35° + 55° = 90°. Answer: ∠ABC = 90° (a right angle).'},
+{t:'angles',d:3,g:'G4',svg:FIG.clock,
+ q:'At 3 o\'clock, the two hands of the clock make what kind of angle?', vn:'Lúc 3 giờ đúng, hai kim đồng hồ tạo thành góc gì?',
+ opts:['Right angle 90° / Góc vuông','Acute angle / Góc nhọn','Obtuse angle / Góc tù','Straight angle 180° / Góc bẹt'],a:0,
+ vocab:'clock hands = kim đồng hồ • quarter turn = một phần tư vòng',
+ why:'From 12 to 3 is a quarter of a full turn: 360° ÷ 4 = 90° → right angle. (1/4 vòng = 90°.)',
+ how:'Viết: "From 12 to 3 = ¼ turn. 360° ÷ 4 = 90°, so the hands make a right angle."'},
+
+/* ---- TRIANGLES ---- */
+{t:'tri',d:1,g:'G4',svg:FIG.equi,
+ q:'All three sides of this triangle are equal (see the tick marks). What kind of triangle is it?', vn:'Ba cạnh tam giác bằng nhau (xem dấu gạch). Đây là tam giác gì?',
+ opts:['Scalene / Thường','Isosceles / Cân','Equilateral / Đều','Right / Vuông'],a:2,
+ vocab:'equilateral = (tam giác) đều • tick marks = dấu gạch (cạnh bằng nhau) • equal = bằng nhau',
+ why:'"Equi-lateral" means equal sides — all 3 sides equal → equilateral. Each angle is also 60°. (3 cạnh bằng nhau → tam giác đều.)',
+ how:'Viết: "The triangle has 3 equal sides, so it is an equilateral triangle." Nêu dấu hiệu về cạnh trước khi kết luận.'},
+{t:'tri',d:1,g:'G4',svg:FIG.rightTri,
+ q:'This triangle has one 90° angle (see the small square). What kind of triangle is it?', vn:'Tam giác có một góc 90° (ô vuông nhỏ). Đây là tam giác gì?',
+ opts:['Acute triangle / Tam giác nhọn','Right triangle / Tam giác vuông','Obtuse triangle / Tam giác tù','Equilateral / Đều'],a:1,
+ vocab:'right triangle = tam giác vuông • square corner = góc vuông (ký hiệu ô vuông)',
+ why:'A triangle with exactly one right angle (90°) is called a right triangle. (Có 1 góc vuông → tam giác vuông.)',
+ how:'Viết: "The triangle has a 90° angle, so it is a right triangle." Ô vuông nhỏ ở góc là ký hiệu góc vuông.'},
+{t:'tri',d:2,g:'G4',svg:FIG.tri9035,
+ q:'Two angles of a triangle measure 90° and 35°. What is the third angle?', vn:'Hai góc của tam giác là 90° và 35°. Góc thứ ba bằng bao nhiêu?',
+ opts:['45°','55°','65°','75°'],a:1,
+ vocab:'sum = tổng • third angle = góc thứ ba • subtract = trừ',
+ why:'Angles in a triangle always add to 180°. 180° − (90° + 35°) = 180° − 125° = 55°. (Tổng 3 góc = 180°.)',
+ how:'Trình bày: Sum of angles = 180°. Third angle = 180° − 90° − 35° = 55°. Answer: 55°.'},
+{t:'tri',d:2,g:'G5',svg:FIG.iso65,
+ q:'An isosceles triangle has two base angles of 65° each. What is the top angle?', vn:'Tam giác cân có hai góc đáy đều bằng 65°. Góc ở đỉnh bằng bao nhiêu?',
+ opts:['50°','60°','65°','115°'],a:0,
+ vocab:'isosceles = (tam giác) cân • base angles = góc đáy • vertex/top angle = góc ở đỉnh',
+ why:'180° − (65° + 65°) = 180° − 130° = 50°. In an isosceles triangle the two base angles are equal. (Hai góc đáy bằng nhau.)',
+ how:'Trình bày: Top angle = 180° − (65° + 65°) = 180° − 130° = 50°. Answer: 50°.'},
+{t:'tri',d:2,g:'G5',svg:null,
+ q:'True or false: Every equilateral triangle is also an isosceles triangle.', vn:'Đúng hay sai: Mọi tam giác đều cũng là tam giác cân.',
+ opts:['True / Đúng','False / Sai'],a:0,
+ vocab:'at least = ít nhất • property = tính chất • hierarchy = thứ bậc phân loại',
+ why:'Isosceles means AT LEAST 2 equal sides. An equilateral triangle has 3 equal sides — so it certainly has 2! (Đều có 3 cạnh bằng nhau → chắc chắn có 2 cạnh bằng nhau → cũng là cân.)',
+ how:'Viết: "An isosceles triangle needs at least 2 equal sides. An equilateral triangle has 3 equal sides, so it is also isosceles. → True."'},
+{t:'tri',d:3,g:'G4',svg:null,
+ q:'A garden sign is a triangle with sides 7 cm, 7 cm and 4 cm. What kind of triangle is it?', vn:'Biển báo hình tam giác có các cạnh 7 cm, 7 cm và 4 cm. Đây là tam giác gì?',
+ opts:['Equilateral / Đều','Isosceles / Cân','Scalene / Thường','Right / Vuông'],a:1,
+ vocab:'sides = các cạnh • exactly = chính xác • perimeter = chu vi',
+ why:'Two sides are equal (7 cm = 7 cm) but not all three → isosceles. (Có đúng 2 cạnh bằng nhau → tam giác cân.) Bonus: P = 7+7+4 = 18 cm.',
+ how:'Viết: "Sides: 7 cm = 7 cm ≠ 4 cm → two equal sides → isosceles triangle." Có thể tính thêm chu vi: P = 7 + 7 + 4 = 18 cm.'},
+
+/* ---- QUADRILATERALS ---- */
+{t:'quad',d:1,g:'G4',svg:FIG.rhomTick,
+ q:'This parallelogram has 4 equal sides but NO right angles. What is it?', vn:'Hình bình hành này có 4 cạnh bằng nhau nhưng KHÔNG có góc vuông. Đó là hình gì?',
+ opts:['Square / Hình vuông','Rectangle / Chữ nhật','Rhombus / Hình thoi','Trapezoid / Hình thang'],a:2,
+ vocab:'rhombus = hình thoi • equal sides = các cạnh bằng nhau • right angle = góc vuông',
+ why:'4 equal sides → rhombus. It is NOT a square because squares also need 4 right angles. (4 cạnh bằng nhau, không có góc vuông → hình thoi.)',
+ how:'Viết: "It has 4 equal sides → rhombus. No right angles → not a square." Nêu cả 2 dấu hiệu để loại trừ hình vuông.'},
+{t:'quad',d:1,g:'G4',svg:null,
+ q:'Which quadrilateral has 4 equal sides AND 4 right angles?', vn:'Tứ giác nào có 4 cạnh bằng nhau VÀ 4 góc vuông?',
+ opts:['Rectangle / Chữ nhật','Rhombus / Thoi','Square / Vuông','Trapezoid / Thang'],a:2,
+ vocab:'both = cả hai • square = hình vuông • AND = và (cần cả 2 điều kiện)',
+ why:'Only the square has BOTH properties. A rectangle has 4 right angles but sides not all equal; a rhombus has 4 equal sides but angles not all 90°. (Chỉ hình vuông có cả hai.)',
+ how:'Lập bảng 2 dấu hiệu: cạnh bằng nhau ✓/✗ và góc vuông ✓/✗ cho từng hình → chỉ Square được ✓✓.'},
+{t:'quad',d:2,g:'G4',svg:null,
+ q:'A rectangle ALWAYS has…', vn:'Hình chữ nhật LUÔN LUÔN có…',
+ opts:['4 equal sides / 4 cạnh bằng nhau','4 right angles / 4 góc vuông','Exactly 1 pair of parallel sides / đúng 1 cặp song song','5 vertices / 5 đỉnh'],a:1,
+ vocab:'always = luôn luôn • opposite sides = các cạnh đối • vertices = các đỉnh',
+ why:'The definition of a rectangle: a parallelogram with 4 right angles. Only OPPOSITE sides must be equal, not all 4. (Định nghĩa HCN: 4 góc vuông; chỉ các cạnh đối bằng nhau.)',
+ how:'Viết: "A rectangle is a parallelogram with 4 right angles." Khi gặp từ ALWAYS, kiểm tra tính chất đó có đúng với MỌI hình chữ nhật không.'},
+{t:'quad',d:2,g:'G5',svg:null,
+ q:'True or false: Every square is a rectangle.', vn:'Đúng hay sai: Mọi hình vuông đều là hình chữ nhật.',
+ opts:['True / Đúng','False / Sai'],a:0,
+ vocab:'definition = định nghĩa • special = đặc biệt • category = nhóm/loại',
+ why:'A rectangle = parallelogram with 4 right angles. A square has 4 right angles → it fits the definition. A square is just a special rectangle with equal sides. (Hình vuông là HCN đặc biệt.)',
+ how:'Viết: "A square has 4 right angles and opposite sides parallel, so it fits the definition of a rectangle. → True."'},
+{t:'quad',d:2,g:'G5',svg:null,
+ q:'Which statement is NOT always true for a parallelogram?', vn:'Phát biểu nào KHÔNG phải lúc nào cũng đúng với hình bình hành?',
+ opts:['Opposite sides are parallel / Cạnh đối song song','Opposite sides are equal / Cạnh đối bằng nhau','Opposite angles are equal / Góc đối bằng nhau','It has 4 right angles / Có 4 góc vuông'],a:3,
+ vocab:'statement = phát biểu • NOT always true = không phải lúc nào cũng đúng',
+ why:'Only rectangles (and squares) have 4 right angles. A "leaning" parallelogram has no right angles at all. (Hình bình hành nghiêng không có góc vuông.)',
+ how:'Vẽ một hình bình hành nghiêng làm phản ví dụ (counterexample) → chứng minh phát biểu D không luôn đúng.'},
+{t:'quad',d:3,g:'G5',svg:null,
+ q:'Three angles of a quadrilateral measure 90°, 90° and 120°. What is the fourth angle?', vn:'Ba góc của một tứ giác là 90°, 90° và 120°. Góc thứ tư bằng bao nhiêu?',
+ opts:['50°','60°','70°','90°'],a:1,
+ vocab:'quadrilateral = tứ giác • sum of angles = tổng các góc • fourth = thứ tư',
+ why:'Angles of any quadrilateral add to 360°. 360° − (90° + 90° + 120°) = 360° − 300° = 60°. (Tổng 4 góc của tứ giác = 360°.)',
+ how:'Trình bày: Sum = 360°. Fourth angle = 360° − (90° + 90° + 120°) = 360° − 300° = 60°. Answer: 60°.'},
+
+/* ---- PERIMETER & AREA ---- */
+{t:'area',d:2,g:'G4',svg:FIG.rect85,
+ q:'Find the PERIMETER of this rectangle (8 cm by 5 cm).', vn:'Tính CHU VI hình chữ nhật 8 cm × 5 cm.',
+ opts:['13 cm','26 cm','40 cm','21 cm'],a:1,
+ vocab:'perimeter = chu vi • distance around = độ dài đường bao quanh • length/width = chiều dài/chiều rộng',
+ why:'P = 2 × (l + w) = 2 × (8 + 5) = 2 × 13 = 26 cm. Careful: 40 is the AREA, not the perimeter! (40 là diện tích — bẫy đấy!)',
+ how:'Trình bày: P = 2 × (l + w) = 2 × (8 + 5) = 2 × 13 = 26 cm. Answer: 26 cm. Luôn viết công thức trước, thay số sau.'},
+{t:'area',d:2,g:'G4',svg:FIG.rect74,
+ q:'Find the AREA of this rectangle (7 cm by 4 cm).', vn:'Tính DIỆN TÍCH hình chữ nhật 7 cm × 4 cm.',
+ opts:['22 cm²','28 cm²','11 cm²','14 cm²'],a:1,
+ vocab:'area = diện tích • square centimeters (cm²) = xăng-ti-mét vuông • multiply = nhân',
+ why:'A = l × w = 7 × 4 = 28 cm². Area is measured in SQUARE units (cm²). (Diện tích = dài × rộng, đơn vị vuông.)',
+ how:'Trình bày: A = l × w = 7 × 4 = 28 cm². Answer: 28 cm². Nhớ viết đơn vị cm² (có số mũ 2).'},
+{t:'area',d:2,g:'G4',svg:null,
+ q:'A square has a perimeter of 36 cm. How long is each side?', vn:'Hình vuông có chu vi 36 cm. Mỗi cạnh dài bao nhiêu?',
+ opts:['6 cm','8 cm','9 cm','12 cm'],a:2,
+ vocab:'square = hình vuông • each side = mỗi cạnh • divide = chia',
+ why:'A square has 4 equal sides, so side = P ÷ 4 = 36 ÷ 4 = 9 cm. (Cạnh = chu vi ÷ 4.)',
+ how:'Trình bày: Side = P ÷ 4 = 36 ÷ 4 = 9 cm. Answer: each side is 9 cm. Thử lại: 9 × 4 = 36 ✓.'},
+{t:'area',d:3,g:'G4',svg:FIG.lshape,
+ q:'Find the area of this L-shaped playground.', vn:'Tính diện tích sân chơi hình chữ L.',
+ opts:['46 m²','52 m²','64 m²','70 m²'],a:1,
+ vocab:'L-shape = hình chữ L • split/decompose = chia nhỏ • rectilinear figure = hình ghép từ HCN',
+ why:'Split into 2 rectangles: bottom 10 × 4 = 40 m², top 4 × 3 = 12 m². Total = 40 + 12 = 52 m². (Chia thành 2 HCN rồi cộng.)',
+ how:'Trình bày: Chia hình theo đường gạch đứt. A₁ = 10 × 4 = 40 m²; A₂ = 4 × 3 = 12 m²; A = A₁ + A₂ = 52 m². Answer: 52 m².'},
+{t:'area',d:2,g:'G5',svg:null,
+ q:'A rectangle is 4 m long and 2½ m wide. What is its area?', vn:'Hình chữ nhật dài 4 m, rộng 2½ m. Diện tích là bao nhiêu?',
+ opts:['8 m²','9 m²','10 m²','12 m²'],a:2,
+ vocab:'mixed number = hỗn số (2½) • wide = rộng • half = một nửa',
+ why:'A = 4 × 2½ = 4 × 2 + 4 × ½ = 8 + 2 = 10 m². (Nhân với hỗn số: tách phần nguyên và phân số.)',
+ how:'Trình bày: A = 4 × 2½ = (4 × 2) + (4 × ½) = 8 + 2 = 10 m². Answer: 10 m².'},
+{t:'area',d:3,g:'G4',svg:null,
+ q:'Mr Vu wants to put a fence around his 12 m × 7 m garden. How many meters of fence does he need?', vn:'Thầy Vũ muốn rào quanh khu vườn 12 m × 7 m. Cần bao nhiêu mét rào?',
+ opts:['19 m','38 m','84 m','26 m'],a:1,
+ vocab:'fence = hàng rào • around = bao quanh (→ chu vi!) • need = cần',
+ why:'"Fence around" = perimeter! P = 2 × (12 + 7) = 2 × 19 = 38 m. 84 is the area — wrong meaning. (Rào quanh → tính chu vi, không phải diện tích.)',
+ how:'Bước 1: từ khóa "around" → chu vi. Bước 2: P = 2 × (12 + 7) = 38 m. Answer: He needs 38 m of fence.'},
+
+/* ---- VOLUME ---- */
+{t:'vol',d:1,g:'G5',svg:FIG.prism,
+ q:'How many unit cubes make up this prism (3 × 2 × 2)?', vn:'Hình hộp này (3 × 2 × 2) gồm bao nhiêu khối lập phương đơn vị?',
+ opts:['10 cubes','12 cubes','14 cubes','7 cubes'],a:1,
+ vocab:'unit cube = khối lập phương đơn vị • layer = lớp • prism = hình hộp/lăng trụ',
+ why:'Each layer has 3 × 2 = 6 cubes. There are 2 layers: 6 × 2 = 12 cubes. (Mỗi lớp 6 khối, 2 lớp → 12 khối.)',
+ how:'Trình bày: Cubes in 1 layer = 3 × 2 = 6. Number of layers = 2. Total = 6 × 2 = 12 unit cubes.'},
+{t:'vol',d:2,g:'G5',svg:null,
+ q:'Find the volume of a box: length 5 cm, width 3 cm, height 4 cm.', vn:'Tính thể tích hộp: dài 5 cm, rộng 3 cm, cao 4 cm.',
+ opts:['12 cm³','60 cm³','23 cm³','35 cm³'],a:1,
+ vocab:'volume = thể tích • cubic centimeters (cm³) = xăng-ti-mét khối • height = chiều cao',
+ why:'V = l × w × h = 5 × 3 × 4 = 60 cm³. Volume uses CUBIC units (cm³). (Thể tích = dài × rộng × cao.)',
+ how:'Trình bày: V = l × w × h = 5 × 3 × 4 = 60 cm³. Answer: 60 cm³. Nhớ đơn vị khối (mũ 3).'},
+{t:'vol',d:2,g:'G5',svg:null,
+ q:'The base of a prism has an area of 24 cm². Its height is 5 cm. Volume = ?', vn:'Đáy hình hộp có diện tích 24 cm², chiều cao 5 cm. Thể tích bằng bao nhiêu?',
+ opts:['29 cm³','120 cm³','100 cm³','96 cm³'],a:1,
+ vocab:'base = mặt đáy • B = diện tích đáy • formula = công thức',
+ why:'Second volume formula: V = B × h = 24 × 5 = 120 cm³. (V = diện tích đáy × chiều cao.)',
+ how:'Trình bày: V = B × h = 24 × 5 = 120 cm³. Answer: 120 cm³. Dùng công thức này khi đề cho sẵn diện tích đáy.'},
+{t:'vol',d:2,g:'G5',svg:null,
+ q:'A box has volume 72 cm³. Its length is 6 cm and width is 3 cm. What is its height?', vn:'Hộp có thể tích 72 cm³, dài 6 cm, rộng 3 cm. Chiều cao là bao nhiêu?',
+ opts:['4 cm','6 cm','8 cm','3 cm'],a:0,
+ vocab:'missing dimension = kích thước còn thiếu • divide = chia • check = thử lại',
+ why:'h = V ÷ (l × w) = 72 ÷ (6 × 3) = 72 ÷ 18 = 4 cm. Check: 6 × 3 × 4 = 72 ✓. (Lấy thể tích chia diện tích đáy.)',
+ how:'Trình bày: l × w = 6 × 3 = 18. h = V ÷ 18 = 72 ÷ 18 = 4 cm. Thử lại: 6 × 3 × 4 = 72 ✓. Answer: 4 cm.'},
+{t:'vol',d:3,g:'G5',svg:null,
+ q:'A juice box is 8 cm long, 4 cm wide and 10 cm tall. How much space does it take up?', vn:'Hộp sữa dài 8 cm, rộng 4 cm, cao 10 cm. Hộp chiếm bao nhiêu không gian?',
+ opts:['320 cm³','220 cm³','80 cm³','32 cm³'],a:0,
+ vocab:'space = không gian (→ thể tích) • take up = chiếm • tall = cao',
+ why:'"Space it takes up" = volume. V = 8 × 4 × 10 = 320 cm³. (Từ khóa "không gian chiếm" → thể tích.)',
+ how:'Bước 1: "space" → thể tích. Bước 2: V = 8 × 4 × 10 = 320 cm³. Answer: The juice box takes up 320 cm³.'},
+{t:'vol',d:3,g:'G5',svg:null,
+ q:'Which unit is best for measuring the volume of a classroom?', vn:'Đơn vị nào phù hợp nhất để đo thể tích một phòng học?',
+ opts:['Centimeters (cm)','Square meters (m²)','Cubic meters (m³)','Kilometers (km)'],a:2,
+ vocab:'unit = đơn vị • cubic meter = mét khối • measure = đo',
+ why:'Volume needs CUBIC units. A classroom is big → cubic meters (m³). cm đo độ dài, m² đo diện tích. (Thể tích phòng → m³.)',
+ how:'Quy tắc chọn đơn vị: độ dài → m; diện tích → m²; thể tích → m³. Viết: "Volume of a room is measured in cubic meters (m³)."'},
+
+/* ---- COORDINATES ---- */
+{t:'coord',d:1,g:'G5',svg:FIG.grid34,
+ q:'What ordered pair names point P?', vn:'Điểm P có tọa độ là gì?',
+ opts:['(4, 3)','(3, 4)','(3, 3)','(4, 4)'],a:1,
+ vocab:'ordered pair = cặp tọa độ • over = sang ngang • up = đi lên',
+ why:'From 0: go RIGHT 3, then UP 4 → (3, 4). Order matters: x first, y second! ((4,3) là sai vì đảo thứ tự.)',
+ how:'Trình bày: "Start at 0. Move right 3 (x = 3), then up 4 (y = 4). P = (3, 4)." Luôn viết x trước, y sau.'},
+{t:'coord',d:1,g:'G5',svg:null,
+ q:'The horizontal axis (going left–right) is called the…', vn:'Trục nằm ngang (trái–phải) gọi là…',
+ opts:['x-axis / trục x','y-axis / trục y','origin / gốc tọa độ','ordered pair / cặp tọa độ'],a:0,
+ vocab:'horizontal = nằm ngang • vertical = thẳng đứng • axis (axes) = trục',
+ why:'The x-axis is horizontal; the y-axis is vertical; they meet at the origin (0,0). (Trục x nằm ngang, trục y thẳng đứng.)',
+ how:'Mẹo nhớ: chữ "y" có nét sổ dọc dài → y là trục DỌC; còn lại x là trục NGANG.'},
+{t:'coord',d:2,g:'G5',svg:null,
+ q:'Start at (2, 1). Move 3 units right and 2 units up. Where are you now?', vn:'Bắt đầu từ (2, 1). Đi sang phải 3 ô và lên trên 2 ô. Bạn đang ở đâu?',
+ opts:['(5, 3)','(4, 3)','(5, 2)','(3, 5)'],a:0,
+ vocab:'move right = đi sang phải (+x) • move up = đi lên (+y) • units = đơn vị/ô',
+ why:'Right 3: x = 2 + 3 = 5. Up 2: y = 1 + 2 = 3. New point: (5, 3). (Sang phải cộng vào x, đi lên cộng vào y.)',
+ how:'Trình bày: x = 2 + 3 = 5; y = 1 + 2 = 3 → (5, 3). Viết phép tính riêng cho từng tọa độ.'},
+{t:'coord',d:2,g:'G5',svg:null,
+ q:'The point (0, 6) lies…', vn:'Điểm (0, 6) nằm ở đâu?',
+ opts:['On the x-axis / Trên trục x','On the y-axis / Trên trục y','At the origin / Tại gốc tọa độ','Outside the grid / Ngoài lưới'],a:1,
+ vocab:'lies on = nằm trên • origin = gốc tọa độ (0,0)',
+ why:'x = 0 means you do not move right at all — you stay on the vertical y-axis and go up 6. (x = 0 → điểm nằm trên trục y.)',
+ how:'Quy tắc: x = 0 → điểm trên trục y; y = 0 → điểm trên trục x. Viết: "(0, 6) has x = 0, so it lies on the y-axis."'},
+{t:'coord',d:3,g:'G5',svg:FIG.gridRect,
+ q:'Three vertices of a rectangle are (1, 1), (5, 1) and (5, 4). What is the fourth vertex?', vn:'Ba đỉnh của hình chữ nhật là (1, 1), (5, 1) và (5, 4). Đỉnh thứ tư là gì?',
+ opts:['(1, 4)','(4, 1)','(1, 5)','(4, 4)'],a:0,
+ vocab:'vertex (vertices) = đỉnh • fourth = thứ tư • line up = thẳng hàng',
+ why:'The fourth corner must line up: same x as (1, 1) → x = 1; same y as (5, 4) → y = 4. So (1, 4). (Đỉnh thứ tư thẳng cột với (1,1) và thẳng hàng với (5,4).)',
+ how:'Trình bày: "It must share x = 1 with (1, 1) and y = 4 with (5, 4) → fourth vertex = (1, 4)." Vẽ phác lưới để kiểm tra.'},
+{t:'coord',d:3,g:'G5',svg:null,
+ q:'How far apart are the points (2, 3) and (7, 3)?', vn:'Hai điểm (2, 3) và (7, 3) cách nhau bao xa?',
+ opts:['5 units','4 units','9 units','10 units'],a:0,
+ vocab:'how far apart = cách nhau bao xa • distance = khoảng cách • same y = cùng tung độ',
+ why:'Both points have y = 3 → they are on the same horizontal line. Distance = 7 − 2 = 5 units. (Cùng y → lấy hiệu hai hoành độ.)',
+ how:'Trình bày: "Same y-coordinate → horizontal distance = 7 − 2 = 5 units." Cùng hàng ngang thì trừ x; cùng cột dọc thì trừ y.'}
+];
+
+const DANG_LABEL = {1:'🔍 Dạng 1 · Identify / Nhận biết', 2:'🧮 Dạng 2 · Calculate / Tính toán', 3:'📖 Dạng 3 · Word problems / Toán đố'};
+const TOPIC_NAME = {angles:'Lines & Angles', tri:'Triangles', quad:'Quadrilaterals', area:'Perimeter & Area', vol:'Volume', coord:'Coordinates'};
+
+/* memory game shapes */
+const MEM_SHAPES = [
+ {n:'Square<br><span style="color:#6b7a99">Hình vuông</span>', s:'<svg viewBox="0 0 60 60"><rect x="12" y="12" width="36" height="36" fill="#dff0fd" stroke="#2f7fd1" stroke-width="3"/></svg>'},
+ {n:'Rectangle<br><span style="color:#6b7a99">Chữ nhật</span>', s:'<svg viewBox="0 0 60 60"><rect x="6" y="17" width="48" height="26" fill="#e6fbf0" stroke="#2eb872" stroke-width="3"/></svg>'},
+ {n:'Right triangle<br><span style="color:#6b7a99">Tam giác vuông</span>', s:'<svg viewBox="0 0 60 60"><polygon points="12,8 12,52 52,52" fill="#fff0e2" stroke="#ff8c42" stroke-width="3"/><rect x="12" y="44" width="8" height="8" fill="none" stroke="#ff8c42" stroke-width="1.6"/></svg>'},
+ {n:'Rhombus<br><span style="color:#6b7a99">Hình thoi</span>', s:'<svg viewBox="0 0 60 60"><polygon points="30,5 52,30 30,55 8,30" fill="#f4eefe" stroke="#7b5ce0" stroke-width="3"/></svg>'},
+ {n:'Trapezoid<br><span style="color:#6b7a99">Hình thang</span>', s:'<svg viewBox="0 0 60 60"><polygon points="18,14 42,14 54,48 6,48" fill="#ffeef0" stroke="#ef5d60" stroke-width="3"/></svg>'},
+ {n:'Parallelogram<br><span style="color:#6b7a99">Bình hành</span>', s:'<svg viewBox="0 0 60 60"><polygon points="16,16 56,16 44,46 4,46" fill="#fdf3d8" stroke="#d4a017" stroke-width="3"/></svg>'}
+];
+</script>
+<script>
+/* ================= STATE ================= */
+const S = {score:0, correct:0, streak:0, best:0, done:0, ans:Array(QS.length).fill(null)};
+const $ = id => document.getElementById(id);
+const TEACHER_ZALO = ''; // điền SĐT Zalo của thầy (vd '0912345678') để hiện nút "Gửi Zalo"
+
+function updateStats(){
+  $('stScore').textContent = S.score;
+  $('stCorrect').textContent = S.correct;
+  $('stStreak').textContent = S.streak;
+  $('stDone').textContent = S.done + '/' + QS.length;
+}
+
+/* ================= RENDER QUESTIONS ================= */
+function renderQuestions(){
+  const topics = ['angles','tri','quad','area','vol','coord'];
+  topics.forEach(t=>{
+    const wrap = $('qs-'+t);
+    let html = '', lastD = 0, num = 0;
+    QS.forEach((q,i)=>{
+      if(q.t!==t) return;
+      num++;
+      if(q.d!==lastD){ html += '<div class="dang-title">'+DANG_LABEL[q.d]+'</div>'; lastD = q.d; }
+      html += '<div class="qcard" id="qc'+i+'">'
+        + '<div class="meta"><span class="badge qnum">Question '+num+'</span><span class="badge grade">'+q.g+'</span><span class="badge dang">'+DANG_LABEL[q.d].split('·')[0].trim()+'</span></div>'
+        + '<div class="qtext">'+q.q+'</div><div class="qvn">🇻🇳 '+q.vn+'</div>'
+        + (q.svg ? '<div class="qfig">'+q.svg+'</div>' : '')
+        + '<div class="opts">'+q.opts.map((o,oi)=>'<button onclick="answer('+i+','+oi+',this)">'+o+'</button>').join('')+'</div>'
+        + '<div class="explain" id="ex'+i+'"></div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+}
+
+function answer(i, oi, btn){
+  if(S.ans[i]!==null) return;
+  const q = QS[i], ok = oi===q.a;
+  S.ans[i] = {picked:oi, ok:ok};
+  S.done++;
+  const card = $('qc'+i);
+  card.querySelectorAll('.opts button').forEach((b,bi)=>{
+    b.disabled = true;
+    if(bi===q.a) b.classList.add('correct');
+    else if(bi===oi && !ok) b.classList.add('wrong');
+  });
+  if(ok){ S.correct++; S.streak++; S.best = Math.max(S.best,S.streak); S.score += 10; }
+  else { S.streak = 0; }
+  const ex = $('ex'+i);
+  ex.innerHTML = (ok ? '<span class="ok">✓ Correct! Chính xác! +10⭐</span> ' : '<span class="no">✗ Not quite! Đáp án đúng: '+q.opts[q.a]+'</span> ')
+    + '<br>💡 ' + q.why
+    + '<br><span style="color:#5b3fa8">✍️ ' + q.how + '</span>';
+  ex.classList.add('show');
+  updateStats();
+}
+
+/* ================= TABS ================= */
+document.querySelectorAll('.tab').forEach(tb=>{
+  tb.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('section.topic').forEach(x=>x.classList.remove('active'));
+    tb.classList.add('active');
+    $('topic-'+tb.dataset.t).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+/* ================= STUDENT INFO ================= */
+function loadStudent(){
+  try{ return JSON.parse(localStorage.getItem('gq_student')||'null'); }catch(e){ return null; }
+}
+function showStudent(st){ $('chipName').textContent = st ? st.n : '—'; }
+(function initStudent(){
+  const st = loadStudent();
+  if(st && st.n){ $('infoModal').classList.remove('show'); showStudent(st); $('inpName').value = st.n; $('inpPhone').value = st.p; }
+})();
+$('startBtn').addEventListener('click',()=>{
+  const n = $('inpName').value.trim(), p = $('inpPhone').value.trim();
+  if(n.length < 2){ $('infoErr').textContent = '⚠️ Hãy nhập họ tên đầy đủ nhé! / Please enter your full name.'; return; }
+  if(!/^0\d{8,10}$/.test(p)){ $('infoErr').textContent = '⚠️ SĐT phải bắt đầu bằng 0 và có 9–11 chữ số! / Invalid phone number.'; return; }
+  localStorage.setItem('gq_student', JSON.stringify({n:n, p:p}));
+  showStudent({n:n,p:p});
+  $('infoErr').textContent = '';
+  $('infoModal').classList.remove('show');
+});
+$('studentChip').addEventListener('click',()=> $('infoModal').classList.add('show'));
+
+/* ================= FINISH / RESULTS / REVIEW ================= */
+function loadBoard(){ try{ return JSON.parse(localStorage.getItem('gq_board')||'[]'); }catch(e){ return []; } }
+
+$('finishBtn').addEventListener('click',()=>{
+  const st = loadStudent();
+  if(!st){ $('infoModal').classList.add('show'); return; }
+  if(S.done===0 && !confirm('Bạn chưa làm câu nào! Vẫn muốn nộp bài? / You haven\'t answered anything yet — submit anyway?')) return;
+  const acc = S.done ? Math.round(S.correct/S.done*100) : 0;
+  const entry = {n:st.n, p:st.p, score:S.score, c:S.correct, d:S.done, best:S.best, acc:acc, date:new Date().toLocaleString('vi-VN',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit',year:'numeric'})};
+  const board = loadBoard();
+  board.push(entry);
+  board.sort((a,b)=> b.score - a.score);
+  localStorage.setItem('gq_board', JSON.stringify(board.slice(0,50)));
+  renderResult(entry);
+  renderBoard(entry);
+  renderReview();
+  document.querySelector('.tab[data-t="board"]').click();
+});
+
+function resultText(e){
+  return '🏆 GEOMETRY QUEST – KẾT QUẢ / RESULT\n'
+   + '👤 Họ tên: ' + e.n + '\n📱 SĐT: ' + e.p + '\n'
+   + '⭐ Điểm: ' + e.score + '\n✅ Đúng: ' + e.c + '/' + e.d + ' câu (' + e.acc + '%)\n'
+   + '🔥 Chuỗi đúng dài nhất: ' + e.best + '\n🕐 ' + e.date + '\n📐 Everyday Maths G4–5 · Geometry';
+}
+
+function renderResult(e){
+  let msg = e.acc>=90 ? '🌟 Xuất sắc! Outstanding!' : e.acc>=70 ? '👍 Giỏi lắm! Great job!' : e.acc>=50 ? '💪 Khá tốt — luyện thêm nhé! Keep going!' : '📚 Xem kỹ phần giải thích bên dưới rồi làm lại nhé!';
+  $('resultArea').innerHTML = '<div class="result-card"><h3>'+msg+'</h3>'
+   + '<div class="who">👤 '+e.n+' &nbsp;•&nbsp; 📱 '+e.p+' &nbsp;•&nbsp; 🕐 '+e.date+'</div>'
+   + '<div class="rgrid">'
+   + '<div class="rbox"><div class="big">'+e.score+'⭐</div><div class="lbl">Score / Điểm</div></div>'
+   + '<div class="rbox"><div class="big">'+e.c+'/'+e.d+'</div><div class="lbl">Correct / Số câu đúng</div></div>'
+   + '<div class="rbox"><div class="big">'+e.acc+'%</div><div class="lbl">Accuracy / Chính xác</div></div>'
+   + '<div class="rbox"><div class="big">'+e.best+'🔥</div><div class="lbl">Best streak / Chuỗi đúng</div></div>'
+   + '</div><div class="rbtns">'
+   + '<button class="gbtn" onclick="copyResult(this)">📋 Copy kết quả</button>'
+   + (TEACHER_ZALO ? '<a class="gbtn purple" style="text-decoration:none" href="https://zalo.me/'+TEACHER_ZALO+'" target="_blank" onclick="copyResult(this)">💬 Gửi Zalo cho thầy</a>' : '')
+   + '<button class="gbtn" style="background:#6b7a99;box-shadow:0 3px 0 #4d5a73" onclick="location.reload()">🔄 Làm lại / Try again</button>'
+   + '</div><p style="margin-top:10px;font-size:13px;color:var(--mut)">Bấm Copy rồi dán gửi cho thầy qua Zalo/Messenger nhé!</p></div>';
+  window._lastEntry = e;
+}
+
+function copyResult(btn){
+  const txt = resultText(window._lastEntry);
+  const done = ()=>{ if(btn && btn.tagName==='BUTTON'){ btn.textContent='✅ Đã copy!'; setTimeout(()=>btn.textContent='📋 Copy kết quả',2000);} };
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done).catch(()=>fallbackCopy(txt,done)); }
+  else fallbackCopy(txt,done);
+}
+function fallbackCopy(txt,done){
+  const ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta);
+  ta.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(ta); done();
+}
+
+function renderBoard(me){
+  const board = loadBoard();
+  if(!board.length){ $('boardWrap').innerHTML = '<div class="lesson" style="text-align:center">Chưa có ai trên bảng xếp hạng — hãy là người đầu tiên! 🚀</div>'; return; }
+  const medal = ['🥇','🥈','🥉'];
+  let rows = board.slice(0,20).map((e,i)=>{
+    const isMe = me && e.n===me.n && e.date===me.date && e.score===me.score;
+    return '<tr'+(isMe?' class="me"':'')+'><td>'+(medal[i]||(i+1))+'</td><td>'+e.n+'</td><td>'+e.p+'</td><td><b>'+e.score+'⭐</b></td><td>'+e.c+'/'+e.d+' ('+(e.acc||0)+'%)</td><td>'+e.date+'</td></tr>';
+  }).join('');
+  $('boardWrap').innerHTML = '<table class="board-table"><tr><th>#</th><th>Tên / Name</th><th>SĐT / Phone</th><th>Điểm</th><th>Đúng</th><th>Thời gian</th></tr>'+rows+'</table>';
+}
+
+let reviewFilter = 'all';
+function renderReview(){
+  $('reviewSection').style.display = 'block';
+  let html = '', lastTopic = '';
+  QS.forEach((q,i)=>{
+    const a = S.ans[i];
+    if(reviewFilter==='wrong' && a && a.ok) return;
+    if(reviewFilter==='right' && (!a || !a.ok)) return;
+    if(q.t!==lastTopic){ html += '<div class="dang-title">📂 '+TOPIC_NAME[q.t]+'</div>'; lastTopic = q.t; }
+    const cls = !a ? 'skipped' : (a.ok ? '' : 'was-wrong');
+    const status = !a ? '⬜ Chưa làm / Skipped' : (a.ok ? '✅ Đúng / Correct' : '❌ Sai / Incorrect');
+    html += '<div class="review-q '+cls+'">'
+      + '<div class="rq-head">'+status+' — '+q.q+'</div>'
+      + (a && !a.ok ? '<div class="rq-ans">Em chọn / You picked: <b style="color:var(--red)">'+q.opts[a.picked]+'</b></div>' : '')
+      + '<div class="rq-ans">Đáp án đúng / Answer: <b style="color:var(--green)">'+q.opts[q.a]+'</b></div>'
+      + '<div class="rv-block rv-vocab"><b>📖 Vocabulary / Từ vựng</b>'+q.vocab+'</div>'
+      + '<div class="rv-block rv-why"><b>💡 Why / Lý do</b>'+q.why+'</div>'
+      + '<div class="rv-block rv-how"><b>✍️ How to write it / Cách trình bày</b>'+q.how+'</div>'
+      + '</div>';
+  });
+  $('reviewWrap').innerHTML = html || '<div class="lesson" style="text-align:center">Không có câu nào trong mục này 🎉</div>';
+}
+document.querySelectorAll('.filter-row button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-row button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); reviewFilter = b.dataset.f; renderReview();
+  });
+});
+
+/* ================= GAME 1: SHAPE MATCH ================= */
+let mem = {first:null, lock:false, pairs:0, miss:0};
+function memNew(){
+  mem = {first:null, lock:false, pairs:0, miss:0};
+  $('memPairs').textContent = 0; $('memMiss').textContent = 0;
+  const cards = [];
+  MEM_SHAPES.forEach((sh,id)=>{ cards.push({id:id, html:sh.s}); cards.push({id:id, html:'<b>'+sh.n+'</b>'}); });
+  cards.sort(()=>Math.random()-.5);
+  $('memGrid').innerHTML = cards.map((c,ci)=>'<button class="mem-card" data-id="'+c.id+'" data-html="'+encodeURIComponent(c.html)+'" onclick="memFlip(this)">?</button>').join('');
+}
+function memFlip(el){
+  if(mem.lock || el.classList.contains('flipped') || el.classList.contains('matched')) return;
+  el.classList.add('flipped');
+  el.innerHTML = decodeURIComponent(el.dataset.html);
+  if(!mem.first){ mem.first = el; return; }
+  const a = mem.first, b = el; mem.first = null;
+  if(a.dataset.id === b.dataset.id){
+    a.classList.add('matched'); b.classList.add('matched');
+    mem.pairs++; $('memPairs').textContent = mem.pairs;
+    if(mem.pairs===6){ S.score += 30; updateStats(); setTimeout(()=>alert('🎉 Tuyệt vời! Ghép đủ 6 cặp — +30⭐!'),200); }
+  } else {
+    mem.miss++; $('memMiss').textContent = mem.miss; mem.lock = true;
+    setTimeout(()=>{ [a,b].forEach(x=>{ x.classList.remove('flipped'); x.textContent='?'; }); mem.lock = false; }, 750);
+  }
+}
+$('memNew').addEventListener('click', memNew);
+
+/* ================= GAME 2: ANGLE DASH ================= */
+let ad = {time:0, score:0, cur:null, timer:null};
+const AD_TYPES = [['Acute / Nhọn','acute'],['Right / Vuông','right'],['Obtuse / Tù','obtuse'],['Straight / Bẹt','straight']];
+function adAngleSvg(deg){
+  const r = deg*Math.PI/180, len = 62;
+  const x = 75 + len*Math.cos(r), y = 84 - len*Math.sin(r);
+  return '<svg width="160" height="100" viewBox="0 0 160 100"><line x1="75" y1="84" x2="148" y2="84" stroke="#2f7fd1" stroke-width="4" stroke-linecap="round"/><line x1="75" y1="84" x2="'+x.toFixed(1)+'" y2="'+y.toFixed(1)+'" stroke="#ef5d60" stroke-width="4" stroke-linecap="round"/><circle cx="75" cy="84" r="5" fill="#2b3a55"/></svg>';
+}
+function adNext(){
+  const pick = AD_TYPES[Math.floor(Math.random()*4)][1];
+  let deg = pick==='acute' ? 15+Math.floor(Math.random()*66)
+        : pick==='right' ? 90
+        : pick==='obtuse' ? 100+Math.floor(Math.random()*66) : 180;
+  ad.cur = pick;
+  $('adFig').innerHTML = adAngleSvg(deg);
+}
+function adPick(type, btn){
+  if(!ad.timer) return;
+  if(type===ad.cur){ ad.score++; S.score += 5; $('adScore').textContent = ad.score; updateStats(); btn.classList.add('flash-ok'); }
+  else btn.classList.add('flash-no');
+  setTimeout(()=>btn.classList.remove('flash-ok','flash-no'),400);
+  adNext();
+}
+$('adStart').addEventListener('click', startAD);
+function startAD(){
+  if(ad.timer) return;
+  ad.time = 45; ad.score = 0;
+  $('adScore').textContent = 0; $('adTime').textContent = 45;
+  $('adArea').innerHTML = '<div id="adFig"></div><div class="choice-row">'
+    + AD_TYPES.map(t=>'<button onclick="adPick(\''+t[1]+'\',this)">'+t[0]+'</button>').join('')+'</div>';
+  adNext();
+  ad.timer = setInterval(()=>{
+    ad.time--; $('adTime').textContent = ad.time;
+    if(ad.time<=0){
+      clearInterval(ad.timer); ad.timer = null;
+      $('adArea').innerHTML = '<p style="font-weight:800;font-size:17px">⏰ Hết giờ! Em đúng <span style="color:var(--green)">'+ad.score+'</span> câu (+'+(ad.score*5)+'⭐)</p><button class="gbtn" onclick="startAD()">▶ Chơi lại / Play again</button>';
+    }
+  },1000);
+}
+
+/* ================= GAME 3: CUBE COUNTER ================= */
+let cc = {time:0, score:0, ans:0, timer:null};
+function ccNext(){
+  const l = 2+Math.floor(Math.random()*5), w = 2+Math.floor(Math.random()*4), h = 2+Math.floor(Math.random()*4);
+  cc.ans = l*w*h;
+  $('ccQ').innerHTML = '📦 length = <b>'+l+'</b> &nbsp;×&nbsp; width = <b>'+w+'</b> &nbsp;×&nbsp; height = <b>'+h+'</b> &nbsp;→&nbsp; V = ?';
+  const inp = $('ccInp'); inp.value = ''; inp.focus();
+}
+function ccCheck(){
+  if(!cc.timer) return;
+  const v = parseInt($('ccInp').value,10);
+  const box = $('ccQ');
+  if(v===cc.ans){ cc.score++; S.score += 5; $('ccScore').textContent = cc.score; updateStats(); box.classList.add('flash-ok'); }
+  else box.classList.add('flash-no');
+  setTimeout(()=>box.classList.remove('flash-ok','flash-no'),400);
+  ccNext();
+}
+$('ccStart').addEventListener('click', startCC);
+function startCC(){
+  if(cc.timer) return;
+  cc.time = 45; cc.score = 0;
+  $('ccScore').textContent = 0; $('ccTime').textContent = 45;
+  $('ccArea').innerHTML = '<p id="ccQ" style="font-size:18px;border-radius:10px;padding:8px"></p><div class="choice-row"><input type="number" class="num-input" id="ccInp" placeholder="V = ?"><button class="gbtn" style="margin-top:0" onclick="ccCheck()">✔ Check</button></div>';
+  $('ccInp').addEventListener('keydown',e=>{ if(e.key==='Enter') ccCheck(); });
+  ccNext();
+  cc.timer = setInterval(()=>{
+    cc.time--; $('ccTime').textContent = cc.time;
+    if(cc.time<=0){
+      clearInterval(cc.timer); cc.timer = null;
+      $('ccArea').innerHTML = '<p style="font-weight:800;font-size:17px">⏰ Hết giờ! Em đúng <span style="color:var(--green)">'+cc.score+'</span> câu (+'+(cc.score*5)+'⭐)</p><button class="gbtn" onclick="startCC()">▶ Chơi lại / Play again</button>';
+    }
+  },1000);
+}
+
+/* ================= INIT ================= */
+renderQuestions();
+memNew();
+renderBoard(null);
+updateStats();
+</script>
+</body>
+</html>
