@@ -34,6 +34,8 @@ nav.tabbar{background:var(--blue);display:flex;overflow-x:auto;position:sticky;t
 nav.tabbar::-webkit-scrollbar{display:none}
 .tab{flex:0 0 auto;color:#dce9fa;background:none;border:none;font-family:inherit;font-weight:700;font-size:15px;padding:14px 16px;cursor:pointer;border-bottom:4px solid transparent;white-space:nowrap}
 .tab.active{color:#fff;border-bottom-color:var(--yellow);background:rgba(255,255,255,.08)}
+.navback{flex:0 0 auto;margin-left:auto;white-space:nowrap;color:#fff;background:var(--orange);border:none;font-family:inherit;font-weight:800;font-size:14px;padding:8px 16px;margin:6px 10px;border-radius:999px;cursor:pointer;box-shadow:0 2px 0 #d96f25}
+.navback:active{transform:translateY(2px);box-shadow:none}
 /* ---------- sections ---------- */
 main{max-width:780px;margin:0 auto;padding:26px 14px 80px}
 section.topic{display:none}
@@ -171,7 +173,8 @@ footer{text-align:center;color:var(--mut);font-size:13px;padding:18px}
 
 <!-- ===== unit picker modal ===== -->
 <div class="modal-bg" id="unitModal">
-  <div class="modal" style="max-width:560px">
+  <div class="modal" style="max-width:560px;position:relative">
+    <button id="unitClose" onclick="document.getElementById('unitModal').classList.remove('show')" style="display:none;position:absolute;top:12px;right:14px;border:none;background:#eef2f8;color:#6b7a99;font-size:20px;font-weight:800;width:34px;height:34px;border-radius:50%;cursor:pointer">×</button>
     <div style="font-size:40px">📚</div>
     <h3>Chọn nội dung luyện tập</h3>
     <p>Choose a unit to practice — mỗi unit có lý thuyết riêng, bài tập và game!</p>
@@ -207,6 +210,7 @@ footer{text-align:center;color:var(--mut);font-size:13px;padding:18px}
   <button class="tab" data-t="practice">✏️ Luyện tập / Practice</button>
   <button class="tab" data-t="games">🎮 Games</button>
   <button class="tab" data-t="board">🏆 Kết quả &amp; Xếp hạng</button>
+  <button class="navback" onclick="document.getElementById('unitModal').classList.add('show')">🔄 Đổi chủ đề khác</button>
 </nav>
 
 <main>
@@ -770,6 +774,7 @@ function buildUnit(k){
   renderGames();
   $('resultArea').innerHTML = '<div class="lesson" style="text-align:center">📝 Làm bài xong, bấm <b>🏁 Nộp bài / Finish</b> ở thanh trên để xem kết quả &amp; lời giải chi tiết.<br>🎲 <b>Mỗi lần tải lại trang là một đề mới!</b></div>';
   $('reviewSection').style.display = 'none';
+  $('unitClose').style.display = 'block';  // đã có unit → cho phép đóng modal khi mở lại
   updateStats();
 }
 
