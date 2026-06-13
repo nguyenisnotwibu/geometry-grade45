@@ -681,7 +681,7 @@ function(){const facts=[[12,[1,2,3,4,6,12]],[18,[1,2,3,6,9,18]],[24,[1,2,3,4,6,8
  'A factor of '+f[0]+' divides it exactly. '+f[0]+' ÷ '+factor+' = '+(f[0]/factor)+' (no remainder). ('+factor+' là ước của '+f[0]+'.)','Viết: '+f[0]+' ÷ '+factor+' = '+(f[0]/factor)+', không dư → '+factor+' là ước.',shuf([String(factor),String(notF),String(notF+1),String(f[0]-1)],0));},
 function(){const a=ri(3,9),b=ri(3,9);const p=a*b;
  return Q('md',1,'G4','<div style="font-size:22px;letter-spacing:2px">'+Array(b).fill('🟦'.repeat(a)).join('<br>')+'</div>','This array shows '+b+' rows of '+a+'. What multiplication does it show?','Mảng này gồm '+b+' hàng, mỗi hàng '+a+' ô. Nó biểu diễn phép nhân nào?','array = mảng • rows = hàng • product = tích',
- b+' rows × '+a+' in each row = '+b+' × '+a+' = '+p+'. (Số hàng × số ô mỗi hàng.)','Viết: '+b+' × '+a+' = '+p+'.',shuf([b+' × '+a+' = '+p,b+' + '+a+' = '+(a+b),a+' ÷ '+b+' = ...,b+' × '+a+' = '+(p+a)],0));},
+ b+' rows × '+a+' in each row = '+b+' × '+a+' = '+p+'. (Số hàng × số ô mỗi hàng.)','Viết: '+b+' × '+a+' = '+p+'.',shuf([b+' × '+a+' = '+p, b+' + '+a+' = '+(a+b), a+' × '+a+' = '+(a*a), b+' × '+a+' = '+(p+a)],0));},
 function(){const a=ri(12,39),b=ri(3,8);const p=a*b;
  return Q('md',2,'G4',null,'Calculate: '+a+' × '+b+' = ?','Tính: '+a+' × '+b+' = ?','multiply = nhân • split by place = tách hàng • product = tích',
  'Split: '+a+' × '+b+' = ('+(Math.floor(a/10)*10)+' × '+b+') + ('+(a%10)+' × '+b+') = '+(Math.floor(a/10)*10*b)+' + '+((a%10)*b)+' = '+p+'. (Tách hàng chục và đơn vị.)','Viết: '+a+' × '+b+' = '+(Math.floor(a/10)*10*b)+' + '+((a%10)*b)+' = '+p+'.',numOpts(p,[p+b,p-b,p+10],''));},
