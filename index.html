@@ -450,7 +450,9 @@ function(){const a=ri(0,4);const d=ri(2,5);const b=a+d;const k=ri(1,8);const mod
  'Both points have the same '+same+'-coordinate → they are on one straight line. Distance = '+b+' − '+a+' = '+d+' units. (Cùng '+same+' → lấy hiệu hai tọa độ '+sub+'.)','Trình bày: "Same '+same+'-coordinate → distance = '+b+' − '+a+' = '+d+' units." Cùng hàng thì trừ hoành độ, cùng cột thì trừ tung độ.',numOpts(d,[b,a+b,d+1],' units'));}
 ];
 const GEO_GENS = GENS;
-const DANG_LABEL = {1:'🔍 Dạng 1 · Identify / Nhận biết', 2:'🧮 Dạng 2 · Calculate / Tính toán', 3:'📖 Dạng 3 · Word problems / Toán đố'};
+const DANG_LABEL = {1:'🔍 Dạng 1 · Identify / Nhận biết', 2:'🧮 Dạng 2 · Calculate / Tính toán', 3:'📖 Dạng 3 · Word problems / Toán đố', 4:'📚 Dạng 4 · Reading word problems / Toán đố đọc hiểu'};
+/* Hiện bản dịch tiếng Việt khi bấm đúp / chuột phải (mặc định chỉ hiện tiếng Anh — như đi thi) */
+function showVN(host){ if(!host) return; const v=host.querySelector('.qvn'); if(v) v.style.display='block'; const h=host.querySelector('.tr-hint'); if(h) h.style.display='none'; }
 
 /* memory game shapes */
 const MEM_SHAPES = [
@@ -1051,6 +1053,90 @@ function(){const d=pick([2,3,4]),w=ri(2,4),n=ri(1,d-1);const totalThirds=w*d+n;
  return Q('mx',3,'G5',null,'Nam ate '+w+' '+n+'/'+d+' bars of chocolate. Each bar splits into '+d+' equal pieces. How many pieces did he eat?','Nam ăn '+w+' '+n+'/'+d+' thanh sô-cô-la. Mỗi thanh chia '+d+' miếng bằng nhau. Nam ăn bao nhiêu miếng?','mixed → improper = đổi ra phân số rồi đếm','Convert to /'+d+': '+w+'×'+d+'+'+n+' = '+totalThirds+' pieces. (Đổi hỗn số ra số miếng.)','Viết: '+w+'×'+d+'+'+n+' = '+totalThirds+'.',numOpts(totalThirds,[w*d,totalThirds+1,Math.max(1,totalThirds-1)],' miếng'));}
 ];
 
+/* ---------- READING / Dạng 4: toán đố đọc hiểu (đoạn văn dài) ---------- */
+const READING = {
+ geometry:[
+  function(){const l=ri(12,25),w=ri(8,l-2);const p=2*(l+w);
+   return Q('rd',4,'G5',null,'A school playground is shaped like a rectangle. It is '+l+' m long and '+w+' m wide. The school wants to put a fence all the way around it. How many metres of fence are needed?','Sân trường hình chữ nhật dài '+l+' m, rộng '+w+' m. Nhà trường muốn làm hàng rào quanh sân. Cần bao nhiêu mét hàng rào?','fence around = hàng rào quanh (chu vi) • perimeter = chu vi','Fence around = perimeter = 2 × ('+l+' + '+w+') = '+p+' m. (Hàng rào quanh sân chính là chu vi.)','Viết: 2 × ('+l+' + '+w+') = '+p+' m.',numOpts(p,[l*w,p+10,p-10],' m'));},
+  function(){const l=ri(6,12),w=ri(4,8),h=ri(3,6);const v=l*w*h;
+   return Q('rd',4,'G5',null,'A gift box is shaped like a cuboid. It is '+l+' cm long, '+w+' cm wide and '+h+' cm high. What is the volume of the box?','Một hộp quà hình hộp chữ nhật dài '+l+' cm, rộng '+w+' cm, cao '+h+' cm. Thể tích của hộp là bao nhiêu?','cuboid = hình hộp chữ nhật • volume = thể tích','Volume = length × width × height = '+l+' × '+w+' × '+h+' = '+v+' cm³. (Thể tích = dài × rộng × cao.)','Viết: '+l+' × '+w+' × '+h+' = '+v+' cm³.',numOpts(v,[l*w,v+10,v-10],' cm³'));}
+ ],
+ placevalue:[
+  function(){const a=ri(2000,5000),b=ri(2000,4000);const s=a+b;
+   return Q('rd',4,'G4',null,'A toy factory made '+a.toLocaleString('en-US')+' toys in January and '+b.toLocaleString('en-US')+' toys in February. How many toys did it make in the two months altogether?','Một xưởng đồ chơi làm '+a.toLocaleString('en-US')+' món trong tháng Một và '+b.toLocaleString('en-US')+' món trong tháng Hai. Cả hai tháng làm được bao nhiêu món?','altogether = tất cả • factory = xưởng','Add the two months: '+a+' + '+b+' = '+s+'. (Cộng số của hai tháng.)','Viết: '+a+' + '+b+' = '+s+'.',numOpts(s,[s+1000,s-1000,Math.abs(a-b)],''));},
+  function(){const total=ri(6,9)*1000;const out=ri(2000,total-1000);const left=total-out;
+   return Q('rd',4,'G5',null,'A library has '+total.toLocaleString('en-US')+' books. During the year '+out.toLocaleString('en-US')+' books were borrowed and not yet returned. How many books are still on the shelves?','Một thư viện có '+total.toLocaleString('en-US')+' cuốn sách. Trong năm có '+out.toLocaleString('en-US')+' cuốn được mượn và chưa trả. Còn bao nhiêu cuốn trên kệ?','borrowed = mượn • shelves = kệ sách','Subtract: '+total+' − '+out+' = '+left+'. (Còn lại = tổng − đã mượn.)','Viết: '+total+' − '+out+' = '+left+'.',numOpts(left,[left+1000,total+out,left-1000],''));}
+ ],
+ fractions:[
+  function(){const a=ri(1,2),b=ri(2,3);const s=a+b;
+   return Q('rd',4,'G5',null,'A cake is cut into 8 equal pieces. Lan eats '+a+' piece(s) and Hoa eats '+b+' pieces. What fraction of the cake did they eat together?','Một cái bánh cắt thành 8 phần bằng nhau. Lan ăn '+a+' phần và Hoa ăn '+b+' phần. Cả hai ăn hết phân số nào của cái bánh?','together = cùng nhau • fraction = phân số','Add the parts over 8: '+a+'/8 + '+b+'/8 = '+s+'/8. (Cộng số phần trên cùng mẫu 8.)','Viết: '+a+'/8 + '+b+'/8 = '+s+'/8.',shuf([s+'/8',a+'/8',b+'/8',(s+1)+'/8'],0));},
+  function(){const d=pick([2,3,4]);const rope=d*ri(2,4);const used=rope/d;
+   return Q('rd',4,'G5',null,'Nam has a rope '+rope+' metres long. He uses 1/'+d+' of it to tie a box. How many metres of rope did he use?','Nam có một sợi dây dài '+rope+' mét. Bạn ấy dùng 1/'+d+' sợi dây để buộc một cái hộp. Nam đã dùng bao nhiêu mét dây?','1/'+d+' of = một phần '+d+' của (chia '+d+')','1/'+d+' of '+rope+' = '+rope+' ÷ '+d+' = '+used+' m. (Lấy độ dài chia cho '+d+'.)','Viết: '+rope+' ÷ '+d+' = '+used+' m.',numOpts(used,[rope,used+1,rope-used],' m'));}
+ ],
+ decimals:[
+  function(){const a=ri(10,25)/10,b=ri(150,300)/100;const t=a+b;const f=x=>x.toFixed(2);
+   return Q('rd',4,'G5',null,'Mai buys '+a.toFixed(1)+' kg of apples and '+b.toFixed(2)+' kg of oranges. What is the total weight of the fruit?','Mai mua '+a.toFixed(1)+' kg táo và '+b.toFixed(2)+' kg cam. Tổng khối lượng trái cây là bao nhiêu?','total weight = tổng khối lượng • line up the points = thẳng dấu phẩy','Add: '+a.toFixed(1)+' + '+b.toFixed(2)+' = '+f(t)+' kg. (Đặt thẳng dấu phẩy rồi cộng.)','Viết: '+a.toFixed(1)+' + '+b.toFixed(2)+' = '+f(t)+' kg.',shuf([f(t)+' kg',f(t+0.1)+' kg',f(t+1)+' kg',f(Math.abs(t-0.1))+' kg'],0));},
+  function(){const start=ri(40,60)/10;const used=ri(10,Math.round(start*10)-10)/10;const left=start-used;const f=x=>x.toFixed(1);
+   return Q('rd',4,'G5',null,'A water tank holds '+f(start)+' litres. After watering the plants, '+f(used)+' litres were used. How much water is left in the tank?','Một bồn nước chứa '+f(start)+' lít. Sau khi tưới cây đã dùng hết '+f(used)+' lít. Trong bồn còn lại bao nhiêu nước?','left = còn lại • subtract = trừ','Subtract: '+f(start)+' − '+f(used)+' = '+f(left)+' L. (Còn lại = ban đầu − đã dùng.)','Viết: '+f(start)+' − '+f(used)+' = '+f(left)+' L.',shuf([f(left)+' L',f(left+0.1)+' L',f(left+1)+' L',f(start+used)+' L'],0));}
+ ],
+ muldiv:[
+  function(){const rows=ri(6,9),per=ri(4,6);const total=rows*per*2;
+   return Q('rd',4,'G4',null,'A classroom has '+rows+' rows of desks. Each row has '+per+' desks. Two students sit at each desk. How many students can sit in the classroom?','Một lớp học có '+rows+' hàng bàn. Mỗi hàng có '+per+' cái bàn. Mỗi bàn ngồi 2 học sinh. Lớp có thể ngồi bao nhiêu học sinh?','rows = hàng • each desk = mỗi bàn','Multiply step by step: '+rows+' × '+per+' = '+(rows*per)+' desks, × 2 students = '+total+'. (Số bàn × 2 học sinh.)','Viết: '+rows+' × '+per+' × 2 = '+total+'.',numOpts(total,[rows*per,total+2,total-2],''));},
+  function(){const per=8,boxes=ri(8,15);const total=per*boxes;
+   return Q('rd',4,'G5',null,'A baker made '+total+' cupcakes. He packs them into boxes of '+per+' cupcakes each. How many boxes does he fill?','Một thợ làm bánh làm '+total+' chiếc bánh cupcake. Mỗi hộp xếp '+per+' chiếc. Xếp đầy được bao nhiêu hộp?','packs into = xếp vào • divide = chia','Divide: '+total+' ÷ '+per+' = '+boxes+' boxes. (Tổng số bánh chia cho số bánh mỗi hộp.)','Viết: '+total+' ÷ '+per+' = '+boxes+'.',numOpts(boxes,[boxes+1,boxes-1,total-per],' hộp'));}
+ ],
+ measurement:[
+  function(){const km=ri(1,3),m=ri(100,800);const total=km*1000+m;
+   return Q('rd',4,'G5',null,'Nam walks '+km+' km '+m+' m to school every morning. How many metres does he walk to school?','Mỗi sáng Nam đi bộ '+km+' km '+m+' m tới trường. Nam đi bộ bao nhiêu mét tới trường?','convert then add = đổi rồi cộng • 1 km = 1000 m','1 km = 1000 m, so '+km+' km = '+(km*1000)+' m; plus '+m+' m = '+total+' m. (Đổi km ra m rồi cộng.)','Viết: '+km+'×1000 + '+m+' = '+total+' m.',numOpts(total,[km*1000,total+100,km+m],' m'));},
+  function(){const sets=[[2,4,500],[3,5,600],[4,5,800],[2,5,400]];const s=pick(sets);
+   return Q('rd',4,'G5',null,'A bottle holds '+s[0]+' litres of juice. Mai pours it equally into '+s[1]+' cups. How many millilitres of juice are in each cup?','Một chai đựng '+s[0]+' lít nước ép. Mai rót đều vào '+s[1]+' cốc. Mỗi cốc có bao nhiêu mi-li-lít?','1 L = 1000 ml • equally = chia đều','Convert then divide: '+s[0]+' L = '+(s[0]*1000)+' ml; ÷ '+s[1]+' = '+s[2]+' ml. (Đổi lít ra ml rồi chia đều.)','Viết: '+(s[0]*1000)+' ÷ '+s[1]+' = '+s[2]+' ml.',numOpts(s[2],[s[2]+100,s[2]-100,s[0]*1000],' ml'));}
+ ],
+ time:[
+  function(){const sh=ri(1,5),sm=pick([0,15,30]),dur=pick([60,75,90,105]);const tot=sh*60+sm+dur,eh=Math.floor(tot/60),em=tot%60;const fmt=(H,M)=>H+':'+String(M).padStart(2,'0');
+   return Q('rd',4,'G5',null,'A film starts at '+fmt(sh,sm)+' PM and lasts '+dur+' minutes. What time does the film finish?','Một bộ phim bắt đầu lúc '+fmt(sh,sm)+' PM (chiều) và kéo dài '+dur+' phút. Mấy giờ phim kết thúc?','starts = bắt đầu • lasts = kéo dài • finish = kết thúc','Add the time: '+fmt(sh,sm)+' + '+dur+' min = '+fmt(eh,em)+' PM. (Cộng thời lượng vào giờ bắt đầu.)','Viết: '+fmt(sh,sm)+' + '+dur+' phút = '+fmt(eh,em)+' PM.',shuf([fmt(eh,em)+' PM',fmt(eh+1,em)+' PM',fmt(eh,(em+15)%60)+' PM',fmt(eh,(em+30)%60)+' PM'],0));},
+  function(){const perDay=ri(1,3);const total=perDay*7;
+   return Q('rd',4,'G4',null,'Nam studies '+perDay+' hour(s) every day. How many hours does he study in one whole week?','Mỗi ngày Nam học '+perDay+' giờ. Trong cả một tuần Nam học bao nhiêu giờ?','every day = mỗi ngày • a week = một tuần (7 ngày)','1 week = 7 days, so '+perDay+' × 7 = '+total+' hours. (Số giờ mỗi ngày × 7.)','Viết: '+perDay+' × 7 = '+total+' giờ.',numOpts(total,[perDay+7,total+7,total-perDay],' giờ'));}
+ ],
+ data:[
+  function(){const a=ri(8,15),b=ri(6,12),c=ri(8,14);const total=a+b+c;
+   return Q('rd',4,'G4',null,'In a survey, '+a+' students like football, '+b+' like badminton and '+c+' like swimming. How many students were surveyed in total?','Trong một khảo sát, '+a+' bạn thích bóng đá, '+b+' bạn thích cầu lông và '+c+' bạn thích bơi. Tổng cộng khảo sát bao nhiêu bạn?','survey = khảo sát • in total = tổng cộng','Add all groups: '+a+' + '+b+' + '+c+' = '+total+'. (Cộng tất cả các nhóm.)','Viết: '+a+' + '+b+' + '+c+' = '+total+'.',numOpts(total,[total+2,total-2,a+b],''));},
+  function(){let s=[ri(6,10),ri(6,10),ri(6,10),ri(6,10)];let sum=s.reduce((x,y)=>x+y,0);const adj=(4-sum%4)%4;s[0]+=adj;sum+=adj;const mean=sum/4;
+   return Q('rd',4,'G5',null,'Mai scored '+s.join(', ')+' marks on four maths tests. What is her average (mean) mark?','Mai được '+s.join(', ')+' điểm trong bốn bài kiểm tra Toán. Điểm trung bình của bạn ấy là bao nhiêu?','average / mean = trung bình • sum ÷ count','Mean = ('+s.join(' + ')+') ÷ 4 = '+sum+' ÷ 4 = '+mean+'. (Tổng điểm chia số bài.)','Viết: '+sum+' ÷ 4 = '+mean+'.',numOpts(mean,[mean+1,mean-1,sum],''));}
+ ],
+ money:[
+  function(){const pen=ri(5,10),book=ri(10,18);const paid=pick([50,100]);const change=paid-(pen+book);
+   return Q('rd',4,'G5',null,'Lan buys a pen for '+pen+',000₫ and a notebook for '+book+',000₫. She pays with a '+paid+',000₫ note. How much change does she get?','Lan mua một cây bút '+pen+'.000₫ và một quyển vở '+book+'.000₫. Bạn ấy trả bằng tờ '+paid+'.000₫. Lan được thối lại bao nhiêu?','pays with = trả bằng • change = tiền thối','Total = '+pen+' + '+book+' = '+(pen+book)+'; change = '+paid+' − '+(pen+book)+' = '+change+' (nghìn ₫). (Tính tổng rồi trừ.)','Viết: '+paid+' − ('+pen+'+'+book+') = '+change+' → '+change+'.000₫.',numOpts(change,[change+5,change-5,pen+book],',000₫'));},
+  function(){const perWeek=ri(10,20),weeks=ri(3,5);const total=perWeek*weeks;
+   return Q('rd',4,'G4',null,'An saves '+perWeek+',000₫ every week. How much money will An have saved after '+weeks+' weeks?','An tiết kiệm '+perWeek+'.000₫ mỗi tuần. Sau '+weeks+' tuần An tiết kiệm được bao nhiêu tiền?','saves = tiết kiệm • every week = mỗi tuần','Multiply: '+perWeek+' × '+weeks+' = '+total+' (nghìn ₫). (Tiền mỗi tuần × số tuần.)','Viết: '+perWeek+' × '+weeks+' = '+total+' → '+total+'.000₫.',numOpts(total,[perWeek+weeks,total+perWeek,total-weeks],',000₫'));}
+ ],
+ percent:[
+  function(){const price=ri(10,30)*10;const off=price/10;
+   return Q('rd',4,'G5',null,'A jacket costs '+price+',000₫. The shop gives a 10% discount. How much money is taken off the price?','Một chiếc áo khoác giá '+price+'.000₫. Cửa hàng giảm 10%. Số tiền được giảm là bao nhiêu?','discount = giảm giá • 10% = 1/10','10% of '+price+' = '+price+' ÷ 10 = '+off+' (nghìn ₫). (Tiền giảm = 10% của giá.)','Viết: '+price+' ÷ 10 = '+off+' → '+off+'.000₫.',numOpts(off,[off*2,price-off,off+10],',000₫'));},
+  function(){const n=ri(8,15)*4;const r=n/4;
+   return Q('rd',4,'G5',null,'A class has '+n+' students. 25% of them wear glasses. How many students wear glasses?','Một lớp có '+n+' học sinh. 25% trong số đó đeo kính. Có bao nhiêu bạn đeo kính?','25% = 1/4 • of = của','25% = 1/4, so 25% of '+n+' = '+n+' ÷ 4 = '+r+'. (Chia 4.)','Viết: '+n+' ÷ 4 = '+r+'.',numOpts(r,[n/2,r+4,r+1],' bạn'));}
+ ],
+ negative:[
+  function(){const a=ri(2,6),rise=ri(a+1,10);const now=-a+rise;
+   return Q('rd',4,'G5',null,'At 6 a.m. the temperature was -'+a+'°C. By noon it had risen by '+rise+'°C. What was the temperature at noon?','Lúc 6 giờ sáng nhiệt độ là -'+a+'°C. Đến trưa nhiệt độ tăng thêm '+rise+'°C. Trưa nhiệt độ là bao nhiêu?','rose / risen = tăng (cộng) • temperature = nhiệt độ','Start at -'+a+', add '+rise+': -'+a+' + '+rise+' = '+now+'°C. (Tăng nhiệt = cộng.)','Viết: -'+a+' + '+rise+' = '+now+'°C.',shuf([now+'°C',(now+1)+'°C',(now-1)+'°C',(-a-rise)+'°C'],0));},
+  function(){const depth=ri(3,8),up=ri(1,depth-1);const pos=-depth+up;
+   return Q('rd',4,'G5',null,'A diver is '+depth+' metres below sea level (-'+depth+' m). She swims up '+up+' metres. What is her new position?','Một thợ lặn đang ở độ sâu '+depth+' mét dưới mực nước biển (-'+depth+' m). Cô ấy bơi lên '+up+' mét. Vị trí mới của cô ấy là bao nhiêu?','below sea level = dưới mực nước biển (âm) • up = lên (cộng)','-'+depth+' + '+up+' = '+pos+' m. (Bơi lên là cộng.)','Viết: -'+depth+' + '+up+' = '+pos+' m.',shuf([pos+' m',(pos+1)+' m',(pos-1)+' m',(-depth-up)+' m'],0));}
+ ],
+ pattern:[
+  function(){const start=ri(8,14),d=ri(2,4),row=5;const val=start+(row-1)*d;
+   return Q('rd',4,'G5',null,'A theatre has '+start+' seats in the first row, '+(start+d)+' in the second, '+(start+2*d)+' in the third, and so on. How many seats are in the FIFTH row?','Một rạp hát có '+start+' ghế ở hàng thứ nhất, '+(start+d)+' ghế hàng thứ hai, '+(start+2*d)+' ghế hàng thứ ba, cứ thế tiếp tục. Hàng thứ NĂM có bao nhiêu ghế?','and so on = cứ thế tiếp • each row adds = mỗi hàng thêm','Each row adds '+d+': row 5 = '+start+' + 4 × '+d+' = '+val+'. (Số đầu + số bước × mức tăng.)','Viết: '+start+' + 4×'+d+' = '+val+'.',numOpts(val,[val+d,val-d,start*row],' ghế'));},
+  function(){const inp=ri(3,7);const out=inp*4;
+   return Q('rd',4,'G5',null,'A machine doubles any number you put in. You put in '+inp+', then put the result back in to double it again. What number comes out?','Một cái máy gấp đôi bất kỳ số nào bỏ vào. Bạn bỏ vào số '+inp+', rồi lấy kết quả bỏ vào lần nữa để gấp đôi tiếp. Số đi ra là bao nhiêu?','double = gấp đôi (× 2) • twice = hai lần','Double twice: '+inp+' × 2 = '+(inp*2)+', then × 2 = '+out+'. (Gấp đôi hai lần = × 4.)','Viết: '+inp+' × 2 × 2 = '+out+'.',numOpts(out,[inp*2,out+2,out-2],''));}
+ ],
+ mixed:[
+  function(){const w=ri(2,3),pieces=4;const total=w*pieces+pieces/2;
+   return Q('rd',4,'G5',null,'Nam ate '+w+' 1/2 chocolate bars. Each whole bar has '+pieces+' pieces. How many pieces did he eat in total?','Nam ăn '+w+' 1/2 thanh sô-cô-la. Mỗi thanh nguyên có '+pieces+' miếng. Nam ăn tất cả bao nhiêu miếng?','mixed number = hỗn số • half = một nửa',w+' wholes = '+(w*pieces)+' pieces, plus 1/2 = '+(pieces/2)+' → '+total+'. (Nguyên × số miếng + nửa.)','Viết: '+w+'×'+pieces+' + '+(pieces/2)+' = '+total+'.',numOpts(total,[w*pieces,total+1,total-1],' miếng'));},
+  function(){const batches=pick([2,4,6]);const ans=batches/2;
+   return Q('rd',4,'G5',null,'A recipe needs 1/2 cup of sugar for one batch of cookies. Mai makes '+batches+' batches. How many cups of sugar does she need in total?','Một công thức cần 1/2 cốc đường cho một mẻ bánh. Mai làm '+batches+' mẻ. Mai cần tất cả bao nhiêu cốc đường?','recipe = công thức • batch = mẻ • of = của','1/2 of '+batches+' = '+batches+' ÷ 2 = '+ans+' cups. (Mỗi mẻ nửa cốc.)','Viết: '+batches+' × 1/2 = '+ans+' cup.',numOpts(ans,[batches,ans+1,ans+2],' cup'));}
+ ]
+};
+(function(){ const map={geometry:GENS,placevalue:PLACE_GENS,fractions:FRAC_GENS,decimals:DEC_GENS,muldiv:MD_GENS,measurement:MEAS_GENS,time:TIME_GENS,data:DATA_GENS,money:MONEY_GENS,percent:PERCENT_GENS,negative:NEG_GENS,pattern:PATTERN_GENS,mixed:MIXED_GENS};
+  Object.keys(READING).forEach(k=>{ if(map[k]) READING[k].forEach(f=>map[k].push(f)); }); })();
+
 /* ---------- speed game generators (numeric) ---------- */
 const SPEED = {
  geometry:function(){const t=pick(['v','a','ang']);if(t==='v'){const l=ri(2,5),w=ri(2,4),h=ri(2,4);return{q:'Volume: '+l+' × '+w+' × '+h+' = ?',a:l*w*h};}if(t==='a'){const l=ri(3,9),w=ri(2,8);return{q:'Area: '+l+' × '+w+' = ?',a:l*w};}const x=ri(1,8);return{q:'Angle: '+x+' × 10° (in degrees) = ?',a:x*10};},
@@ -1206,9 +1292,10 @@ function renderPractice(){
     const q = pair[0], i = pair[1];
     num++;
     if(q.d!==lastD){ html += '<div class="dang-title">'+DANG_LABEL[q.d]+'</div>'; lastD = q.d; }
-    html += '<div class="qcard" id="qc'+i+'">'
+    html += '<div class="qcard" id="qc'+i+'" ondblclick="showVN(this)" oncontextmenu="showVN(this);return false;">'
       + '<div class="meta"><span class="badge qnum">Question '+num+'</span><span class="badge grade">'+q.g+'</span><span class="badge dang">'+DANG_LABEL[q.d].split('·')[0].trim()+'</span></div>'
-      + '<div class="qtext">'+q.q+'</div><div class="qvn">🇻🇳 '+q.vn+'</div>'
+      + '<div class="qtext">'+q.q+'</div><div class="qvn" style="display:none">🇻🇳 '+q.vn+'</div>'
+      + '<div class="tr-hint" onclick="showVN(this.parentNode)" style="font-size:12.5px;color:#8aa0bd;margin:2px 0 6px;cursor:pointer;user-select:none">👆 Bấm đúp / chuột phải để dịch · Double-click to translate</div>'
       + (q.svg ? '<div class="qfig">'+q.svg+'</div>' : '')
       + '<div class="opts">'+q.opts.map((o,oi)=>'<button onclick="answer('+i+','+oi+',this)">'+o+'</button>').join('')+'</div>'
       + '<div class="explain" id="ex'+i+'"></div></div>';
@@ -1506,7 +1593,10 @@ function gq(){   // lấy 1 câu trắc nghiệm ngẫu nhiên từ generators c
 }
 function renderQuiz(areaId, q, onPick){
   const c = $(areaId); if(!c) return;
-  c.innerHTML = '<div class="qtext" style="font-size:16.5px">'+q.q+'</div>'
+  c.innerHTML = '<div class="gqwrap" ondblclick="showVN(this)" oncontextmenu="showVN(this);return false;">'
+    + '<div class="qtext" style="font-size:16.5px">'+q.q+'</div>'
+    + '<div class="qvn" style="display:none">🇻🇳 '+(q.vn||'')+'</div>'
+    + '<div class="tr-hint" onclick="showVN(this.parentNode)" style="font-size:12px;color:#8aa0bd;margin:2px 0 4px;cursor:pointer;user-select:none">👆 Bấm đúp để dịch / translate</div></div>'
     + (q.svg ? '<div class="qfig">'+q.svg+'</div>' : '')
     + '<div class="opts" id="'+areaId+'_opts"></div>';
   const ob = $(areaId+'_opts');
@@ -1584,7 +1674,7 @@ function tfNext(){
   const others=[]; for(let i=0;i<q.opts.length;i++) if(i!==q.a) others.push(i);
   const shownIdx = showCorrect ? q.a : (others.length?pick(others):q.a);
   const isTrue = shownIdx===q.a;
-  $('tfArea').innerHTML='<div class="qtext" style="font-size:15.5px">'+q.q+'</div>'
+  $('tfArea').innerHTML='<div class="gqwrap" ondblclick="showVN(this)" oncontextmenu="showVN(this);return false;"><div class="qtext" style="font-size:15.5px">'+q.q+'</div><div class="qvn" style="display:none">🇻🇳 '+(q.vn||'')+'</div><div class="tr-hint" onclick="showVN(this.parentNode)" style="font-size:12px;color:#8aa0bd;margin:2px 0 4px;cursor:pointer;user-select:none">👆 Bấm đúp để dịch</div></div>'
     + (q.svg ? '<div class="qfig">'+q.svg+'</div>' : '')
     + '<div style="margin:10px 0;font-weight:800">Đáp án đề xuất / Proposed: <span style="color:#2f6fd0">'+q.opts[shownIdx]+'</span></div>'
     + '<div class="choice-row"><button class="gbtn" id="tfT">✔ Đúng/True</button><button class="gbtn" id="tfF" style="background:#ef5d60;box-shadow:0 3px 0 #c4393c">✘ Sai/False</button></div>';
